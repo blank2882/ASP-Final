@@ -25,9 +25,14 @@ global.db = new sqlite3.Database('./database.db',function(err){
     }
 });
 
-// Handle requests to the home page 
+// Handle requests to the main page 
 app.get('/', (req, res) => {
-    res.render("welcome-page");
+    res.render("main-page.ejs");
+});
+
+// handle requests to the login page
+app.get('/login-page', (req, res) => {
+    res.render("login-page.ejs");
 });
 
 

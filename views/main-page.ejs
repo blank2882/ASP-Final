@@ -12,6 +12,16 @@
       crossorigin="anonymous"
     />
     <title>Main Page</title>
+    <style>
+      #navbar {
+        display: none;
+        position: fixed;
+        top: 0;
+        width: 100%;
+        background-color: #f8f9fa;
+        z-index: 1000;
+      }
+    </style>
   </head>
 
   <body>
@@ -37,10 +47,10 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav ms-auto">
             <li class="nav-item">
-              <a class="nav-link" href="/">Home</a>
+              <a class="nav-link" href="#">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/#about-us">About Us</a>
+              <a class="nav-link" href="#about-us">About Us</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="/login-page">Login</a>
@@ -50,45 +60,55 @@
       </div>
     </nav>
 
-    <!-- login form -->
-    <div class="container mt-5">
-      <div class="row justify-content-center">
-        <div class="col-md-6">
-          <div class="card">
-            <div class="card-header bg-success text-white">Login</div>
-            <div class="card-body">
-              <form action="/login" method="POST">
-                <div class="mb-3">
-                  <label for="email" class="form-label">Email</label>
-                  <input
-                    type="email"
-                    class="form-control"
-                    id="email"
-                    name="email"
-                    required
-                  />
-                </div>
-                <div class="mb-3">
-                  <label for="password" class="form-label">Password</label>
-                  <input
-                    type="password"
-                    class="form-control"
-                    id="password"
-                    name="password"
-                    required
-                  />
-                </div>
-                <button type="submit" class="btn btn-success">Login</button>
-              </form>
-            </div>
-          </div>
+    <!-- Feastly start section -->
+    <div
+      class="d-flex justify-content-center align-items-center bg-success-subtle"
+      style="height: 100vh"
+    >
+      <div class="container-fluid text-center">
+        <!-- header -->
+        <h1>Feastly</h1>
+        <p>scroll to continue</p>
+        <!-- Login button -->
+        <button class="btn btn-success">
+          <a href="/login-page">Login</a>
+        </button>
+      </div>
+    </div>
+
+    <!-- about us section -->
+    <div id="about-us" class="container-fluid text-center p-5">
+      <!-- section title -->
+      <h1>ABOUT US</h1>
+      <div class="about-box bg-success-subtle rounded p-4">
+        <div class="mb-4">
+          <!-- section title -->
+          <h2>- Who are we? -</h2>
+          <!-- description of what the application is about -->
+          <p>
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Id sit
+            facilis illum assumenda, ipsum aliquid non beatae, eveniet deserunt
+            ducimus atque porro repudiandae saepe adipisci reprehenderit nobis
+            veritatis quibusdam dolorum?
+          </p>
+        </div>
+        <div>
+          <!-- section title -->
+          <h2>- What do we do? -</h2>
+          <!-- description of how the application works-->
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores,
+            exercitationem doloribus sit vel vero eius! Architecto suscipit
+            numquam recusandae inventore quis vero culpa laboriosam, ut
+            reiciendis quaerat sint facere magni!
+          </p>
         </div>
       </div>
     </div>
 
     <!-- footer section -->
     <footer class="bg-success-subtle text-center p-3 mt-5">
-      <a href="/#about-us">About Us</a>
+      <a href="#about-us">About Us</a>
       <p>&copy; 2025 Feastly</p>
     </footer>
 
@@ -104,4 +124,16 @@
       crossorigin="anonymous"
     ></script>
   </body>
+
+  <script>
+    // when the user scrolls, the navigation bar will appear
+    window.addEventListener("scroll", () => {
+      const navbar = document.getElementById("navbar");
+      if (window.scrollY > 100) {
+        navbar.style.display = "block";
+      } else {
+        navbar.style.display = "none";
+      }
+    });
+  </script>
 </html>
