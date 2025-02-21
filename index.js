@@ -27,12 +27,23 @@ global.db = new sqlite3.Database('./database.db',function(err){
 
 // Handle requests to the home page 
 app.get('/', (req, res) => {
-    res.send('Hello World!')
+    res.render("welcome-page");
 });
+
 
 // Add all the route handlers in usersRoutes to the app under the path /users
 const usersRoutes = require('./routes/users');
 app.use('/users', usersRoutes);
+
+
+// Add all the route handlers in usersRoutes to the app under the path /planner
+const plannerRoutes = require('./routes/planner');
+app.use('/planner', plannerRoutes);
+
+
+// Add all the route handlers in accountsRoutes to the app under the path /accounts
+const accountsRoutes = require('./routes/accounts');
+app.use('/accounts', accountsRoutes);
 
 
 // Make the web application listen for HTTP requests
