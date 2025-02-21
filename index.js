@@ -35,6 +35,11 @@ app.get('/login-page', (req, res) => {
     res.render("login-page.ejs");
 });
 
+// handle requests to the signup page
+app.get('/signup-page', (req, res) => {
+    res.render("signup-page.ejs");
+});
+
 
 // Add all the route handlers in usersRoutes to the app under the path /users
 const usersRoutes = require('./routes/users');
