@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feastly home page</title>
+</head>
+<body>
+    <h1>Welcome, <%= user.user_name %>!</h1>
+    <!-- section 1: my groups -->
+    <div class="group-card">
+        <h1>My groups</h1>
+    </div>
+    <!-- section 2: upcoming meals -->
+    <!-- section 3: cooking assistant -->
+    <!-- section 4: dish suggestion -->
+
+    <!-- logout button to end user session -->
+    <form action="/accounts/logout" method="POST">
+        <button type="submit">Logout</button>
+    </form>
+</body>
+</html>
