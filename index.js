@@ -44,15 +44,6 @@ app.get('/', (req, res) => {
     res.render("main-page.ejs");
 });
 
-// handle requests to the login page
-app.get('/login-page', (req, res) => {
-    res.render("login-page.ejs");
-});
-
-// handle requests to the signup page
-app.get('/signup-page', (req, res) => {
-    res.render("signup-page.ejs");
-});
 
 // handle requests to the home page, return to main page if not in session
 app.get('/home-page', (req, res) => {

@@ -20,11 +20,11 @@ CREATE TABLE IF NOT EXISTS diet_pref_options (
 
 CREATE TABLE IF NOT EXISTS users_diet_pref (
     user_id INTEGER NOT NULL, -- foreign key from users
-    diet_id INTEGER NOT NULL, -- foreign key from dietary_preferences
+    diet_name TEXT NOT NULL, -- foreign key from dietary_preferences
 
-    PRIMARY KEY (user_id, diet_id), -- ensures no duplicate preferences per user
+    PRIMARY KEY (user_id, diet_name), -- ensures no duplicate preferences per user
     FOREIGN KEY(user_id) REFERENCES users(user_id) ON DELETE CASCADE,
-    FOREIGN KEY(diet_id) REFERENCES diet_pref_options(diet_id) ON DELETE CASCADE
+    FOREIGN KEY(diet_name) REFERENCES diet_pref_options(diet_name) ON DELETE CASCADE
 );
 
 -- tables for group planning --
@@ -124,41 +124,44 @@ COMMIT;
 
 -- FOR TESTING PURPOSES, uncomment if you want to test --
 -- -- dummy data for testing --
-INSERT INTO users (user_name, user_email, user_password) VALUES ('admin', 'admin@localhost', 'admin123');
-INSERT INTO users (user_name, user_email, user_password) VALUES ('user1', 'user1@localhost', 'user123');
+-- INSERT INTO users (user_name, user_email, user_password) VALUES ('admin', 'admin@localhost', 'admin123');
+-- INSERT INTO users (user_name, user_email, user_password) VALUES ('user1', 'user1@localhost', 'user123');
 
 INSERT INTO diet_pref_options (diet_name) VALUES ('Vegetarian');
 INSERT INTO diet_pref_options (diet_name) VALUES ('Vegan');
+INSERT INTO diet_pref_options (diet_name) VALUES ('Seafood allergy');
+INSERT INTO diet_pref_options (diet_name) VALUES ('Halal');
+INSERT INTO diet_pref_options (diet_name) VALUES ('Lactose intolerant');
 
-INSERT INTO users_diet_pref (user_id, diet_id) VALUES (1, 1);
-INSERT INTO users_diet_pref (user_id, diet_id) VALUES (1, 2);
+-- INSERT INTO users_diet_pref (user_id, diet_id) VALUES (1, 1);
+-- INSERT INTO users_diet_pref (user_id, diet_id) VALUES (1, 2);
 
-INSERT INTO groups (group_leader, group_name, group_description, group_meet_location, group_meet_date, group_meet_time) VALUES (1, 'Group 1', 'Group 1 Description', 'Location 1', '2021-12-01', '12:00:00');
-INSERT INTO groups (group_leader, group_name, group_description, group_meet_location, group_meet_date, group_meet_time) VALUES (1, 'Group 2', 'Group 2 Description', 'Location 2', '2021-12-02', '13:00:00');
+-- INSERT INTO groups (group_leader, group_name, group_description, group_meet_location, group_meet_date, group_meet_time) VALUES (1, 'Group 1', 'Group 1 Description', 'Location 1', '2021-12-01', '12:00:00');
+-- INSERT INTO groups (group_leader, group_name, group_description, group_meet_location, group_meet_date, group_meet_time) VALUES (1, 'Group 2', 'Group 2 Description', 'Location 2', '2021-12-02', '13:00:00');
 
-INSERT INTO group_members (group_id, user_id) VALUES (1, 1);
-INSERT INTO group_members (group_id, user_id) VALUES (1, 2);
+-- INSERT INTO group_members (group_id, user_id) VALUES (1, 1);
+-- INSERT INTO group_members (group_id, user_id) VALUES (1, 2);
 
-INSERT INTO group_food (group_id, food_name, food_confirmed) VALUES (1, 'Pizza', 1);
-INSERT INTO group_food (group_id, food_name, food_confirmed) VALUES (1, 'Burger', 0);
+-- INSERT INTO group_food (group_id, food_name, food_confirmed) VALUES (1, 'Pizza', 1);
+-- INSERT INTO group_food (group_id, food_name, food_confirmed) VALUES (1, 'Burger', 0);
 
-INSERT INTO food_votes (food_id, user_id) VALUES (1, 1);
-INSERT INTO food_votes (food_id, user_id) VALUES (1, 2);
+-- INSERT INTO food_votes (food_id, user_id) VALUES (1, 1);
+-- INSERT INTO food_votes (food_id, user_id) VALUES (1, 2);
 
-INSERT INTO grocery_list (group_id, grocery_name, grocery_qty, grocery_unit, grocery_purchased) VALUES (1, 'Milk', 1, 'Gallon', 0);
-INSERT INTO grocery_list (group_id, grocery_name, grocery_qty, grocery_unit, grocery_purchased) VALUES (1, 'Eggs', 12, 'Count', 1);
+-- INSERT INTO grocery_list (group_id, grocery_name, grocery_qty, grocery_unit, grocery_purchased) VALUES (1, 'Milk', 1, 'Gallon', 0);
+-- INSERT INTO grocery_list (group_id, grocery_name, grocery_qty, grocery_unit, grocery_purchased) VALUES (1, 'Eggs', 12, 'Count', 1);
 
-INSERT INTO recipes (recipe_name, recipe_description, recipe_duration, recipe_servings) VALUES ('Recipe 1', 'Recipe 1 Description', 30, 4);
-INSERT INTO recipes (recipe_name, recipe_description, recipe_duration, recipe_servings) VALUES ('Recipe 2', 'Recipe 2 Description', 45, 6);
+-- INSERT INTO recipes (recipe_name, recipe_description, recipe_duration, recipe_servings) VALUES ('Recipe 1', 'Recipe 1 Description', 30, 4);
+-- INSERT INTO recipes (recipe_name, recipe_description, recipe_duration, recipe_servings) VALUES ('Recipe 2', 'Recipe 2 Description', 45, 6);
 
-INSERT INTO recipe_ingredients (recipe_id, ingredient_name, ingredient_qty, ingredient_unit) VALUES (1, 'Flour', 2, 'Cup');
-INSERT INTO recipe_ingredients (recipe_id, ingredient_name, ingredient_qty, ingredient_unit) VALUES (1, 'Sugar', 1, 'Cup');
+-- INSERT INTO recipe_ingredients (recipe_id, ingredient_name, ingredient_qty, ingredient_unit) VALUES (1, 'Flour', 2, 'Cup');
+-- INSERT INTO recipe_ingredients (recipe_id, ingredient_name, ingredient_qty, ingredient_unit) VALUES (1, 'Sugar', 1, 'Cup');
 
-INSERT INTO recipe_tools (recipe_id, tool_name) VALUES (1, 'Oven');
-INSERT INTO recipe_tools (recipe_id, tool_name) VALUES (1, 'Bowl');
+-- INSERT INTO recipe_tools (recipe_id, tool_name) VALUES (1, 'Oven');
+-- INSERT INTO recipe_tools (recipe_id, tool_name) VALUES (1, 'Bowl');
 
-INSERT INTO steps (recipe_id, step_number, step_instruction, step_duration) VALUES (1, 1, 'Step 1', 5);
-INSERT INTO steps (recipe_id, step_number, step_instruction, step_duration) VALUES (1, 2, 'Step 2', 10);
+-- INSERT INTO steps (recipe_id, step_number, step_instruction, step_duration) VALUES (1, 1, 'Step 1', 5);
+-- INSERT INTO steps (recipe_id, step_number, step_instruction, step_duration) VALUES (1, 2, 'Step 2', 10);
 
 -- -- delete data --
 -- DELETE FROM users
