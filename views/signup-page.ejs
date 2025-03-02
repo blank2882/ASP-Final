@@ -18,9 +18,16 @@
     <!-- navigation bar -->
     <nav id="navbar" class="navbar navbar-expand-lg navbar-light bg-success">
       <div class="container-fluid">
-
         <!-- application name -->
-        <a class="navbar-brand" href="#">Feastly</a>
+        <a class="navbar-brand" href="/">
+          <img
+            src="/assets/feastly.png"
+            alt="feastly logo"
+            width="100"
+            height="100"
+            class="d-inline-block align-text-top"
+          />
+        </a>
 
         <!-- when the screen becomes small, the links in the nav bar switches to a button -->
         <button
@@ -54,65 +61,77 @@
 
     <!-- signup form -->
     <div class="container mt-5">
-        <div class="row justify-content-center">
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-header bg-success text-white">Sign up</div>
-                    <div class="card-body">
-                        <form action="/accounts/signup-page" method="POST">
-                            <div class="mb-3">
-                                <label for="username" class="form-label">Name</label>
-                                <input
-                                  type="text"
-                                  class="form-control"
-                                  id="username"
-                                  name="username"
-                                  required
-                                />
-                            </div>
-  
-                            <div class="mb-3">
-                                <label for="email" class="form-label">Email</label>
-                                <input
-                                  type="email"
-                                  class="form-control"
-                                  id="email"
-                                  name="email"
-                                  required
-                                />
-                            </div>
-  
-                            <div class="mb-3">
-                                <label for="password" class="form-label">Password</label>
-                                <input
-                                  type="password"
-                                  class="form-control"
-                                  id="password"
-                                  name="password"
-                                  required
-                                />
-                            </div>
-  
-                            <!-- diet pref options -->
-                            <div class="mb-3">
-                                <label for="diet-options" class="form-label">Dietary preferences:</label>
-                                <div class="d-flex flex-wrap">
-                                    <% dietOptions.forEach((option, index) => { %>
-                                        <div class="d-flex align-items-center p-2" style="width: 33.33%;">
-                                            <input type="checkbox" id="diet_pref_<%= index %>" name="dietPreferences[]" value="<%= option.diet_name %>" class="me-2"/>
-                                            <label for="diet_pref_<%= index %>"><%= option.diet_name %></label>
-                                        </div>
-                                    <% }); %>
-                                </div>
-                            </div>
-  
-                            <button type="submit" class="btn btn-success">Sign up</button>
-                        </form>
-  
-                    </div>
+      <div class="row justify-content-center">
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-header bg-success text-white">Sign up</div>
+            <div class="card-body">
+              <form action="/accounts/signup-page" method="POST">
+                <div class="mb-3">
+                  <label for="username" class="form-label">Name</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="username"
+                    name="username"
+                    required
+                  />
                 </div>
+
+                <div class="mb-3">
+                  <label for="email" class="form-label">Email</label>
+                  <input
+                    type="email"
+                    class="form-control"
+                    id="email"
+                    name="email"
+                    required
+                  />
+                </div>
+
+                <div class="mb-3">
+                  <label for="password" class="form-label">Password</label>
+                  <input
+                    type="password"
+                    class="form-control"
+                    id="password"
+                    name="password"
+                    required
+                  />
+                </div>
+
+                <!-- diet pref options -->
+                <div class="mb-3">
+                  <label for="diet-options" class="form-label"
+                    >Dietary preferences:</label
+                  >
+                  <div class="d-flex flex-wrap">
+                    <% dietOptions.forEach((option, index) => { %>
+                    <div
+                      class="d-flex align-items-center p-2"
+                      style="width: 33.33%"
+                    >
+                      <input
+                        type="checkbox"
+                        id="diet_pref_<%= index %>"
+                        name="dietPreferences[]"
+                        value="<%= option.diet_name %>"
+                        class="me-2"
+                      />
+                      <label for="diet_pref_<%= index %>"
+                        ><%= option.diet_name %></label
+                      >
+                    </div>
+                    <% }); %>
+                  </div>
+                </div>
+
+                <button type="submit" class="btn btn-success">Sign up</button>
+              </form>
             </div>
+          </div>
         </div>
+      </div>
     </div>
 
     <!-- footer section -->
