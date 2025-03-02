@@ -11,25 +11,33 @@ function vote(suggestionId, type) {
 
   // update the vote count and button color
   if (type === "like") {
+    // update the like count and button color
     if (liked) {
+      // remove the like
       likeBtn.classList.remove("btn-success");
       likeCount.textContent = parseInt(likeCount.textContent) - 1;
     } else {
+      // add the like
       likeBtn.classList.add("btn-success");
       likeCount.textContent = parseInt(likeCount.textContent) + 1;
       if (disliked) {
+        // remove the dislike
         dislikeBtn.classList.remove("btn-danger");
         dislikeCount.textContent = parseInt(dislikeCount.textContent) - 1;
       }
     }
   } else if (type === "dislike") {
+    // update the dislike count and button color
     if (disliked) {
+      // remove the dislike
       dislikeBtn.classList.remove("btn-danger");
       dislikeCount.textContent = parseInt(dislikeCount.textContent) - 1;
     } else {
+      // add the dislike
       dislikeBtn.classList.add("btn-danger");
       dislikeCount.textContent = parseInt(dislikeCount.textContent) + 1;
       if (liked) {
+        // remove the like
         likeBtn.classList.remove("btn-success");
         likeCount.textContent = parseInt(likeCount.textContent) - 1;
       }
