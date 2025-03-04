@@ -49,7 +49,25 @@ app.get("/home-page", (req, res) => {
   if (!req.session.user) {
     return res.redirect("/main-page");
   }
-  res.render("home-page.ejs", { user: req.session.user });
+
+  const userId = req.session.user.user_id;
+
+  // Fetch the groups that the user is a member of
+  global.db.all(
+    `SELECT groups.group_id, groups.group_name
+     FROM group_members
+     JOIN groups ON group_members.group_id = groups.group_id
+     WHERE group_members.user_id = ?`,
+    [userId],
+    (err, groups) => {
+      if (err) {
+        console.error("Error fetching user groups:", err);
+        return res.status(500).send("Error fetching user groups");
+      }
+
+      res.render("home-page.ejs", { user: req.session.user, groups });
+    }
+  );
 });
 
 // Add all the route handlers in usersRoutes to the app under the path /users

@@ -89,43 +89,135 @@ router.post("/vote", (req, res) => {
     return res.status(401).send("User not logged in");
   }
 
-  // Check if the user has already voted for this food item
-  // find any row in the food_votes table that has the user_id since the user can only vote once 
+  // check if the user has already voted for this food item in the specific group
   global.db.get(
-    `SELECT * FROM food_votes WHERE user_id = ?`,
-    [userId],
+    `SELECT * FROM food_votes WHERE user_id = ? AND group_id = ?`,
+    [userId, groupId],
     (err, row) => {
       if (err) {
-        console.error("Error checking vote:", err);
-        return res.status(500).send("Error checking vote");
+        console.error("Error checking existing vote:", err);
+        return res.status(500).send("Error checking existing vote");
       }
 
       if (row) {
-        // If user has already voted, redirect them back to the group page
-        res.send(`
-          <html>
-            <head>
-              <meta http-equiv="refresh" content="3;url=/planner/group/${groupId}" />
-            </head>
-            <body>
-              <h1>You have already voted, you cannot vote again. You will be redirected to the group page in 3 seconds.</h1>
-            </body>
-          </html>
-        `);
-      } else {
-        // Insert the vote if the user has not voted
+        // user has already voted for this group, update the vote
         global.db.run(
-          `INSERT INTO food_votes (food_id, user_id) VALUES (?, ?)`,
-          [foodId, userId],
+          `UPDATE food_votes SET food_id = ? WHERE user_id = ? AND group_id = ?`,
+          [foodId, userId, groupId],
+          (err) => {
+            if (err) {
+              console.error("Error updating vote:", err);
+              return res.status(500).send("Error updating vote");
+            }
+            res.redirect(`/planner/group/${groupId}`);
+          }
+        );
+      } else {
+        // user has not voted for this group, insert a new vote
+        global.db.run(
+          `INSERT INTO food_votes (user_id, group_id, food_id) VALUES (?, ?, ?)`,
+          [userId, groupId, foodId],
           (err) => {
             if (err) {
               console.error("Error inserting vote:", err);
               return res.status(500).send("Error inserting vote");
             }
-
             res.redirect(`/planner/group/${groupId}`);
           }
         );
+      }
+    }
+  );
+});
+
+// add shopping list item POST
+router.post("/add-shopping-item", (req, res) => {
+  const { groupId, foodName, ingredientName, quantity, unit } = req.body;
+
+  global.db.run(
+    `INSERT INTO shopping_list (group_id, food_name, ingredient_name, quantity, unit, purchased, purchased_by)
+     VALUES (?, ?, ?, ?, ?, 0, '')`,
+    [groupId, foodName, ingredientName, quantity, unit],
+    function (err) {
+      if (err) {
+        console.error("Error adding shopping list item:", err);
+        return res.status(500).send("Error adding shopping list item");
+      }
+      res.redirect(`/planner/group/${groupId}`);
+    }
+  );
+});
+
+// update purchased status POST
+router.post("/update-purchased-status", (req, res) => {
+  const { itemId, purchased } = req.body;
+
+  global.db.run(
+    `UPDATE shopping_list SET purchased = ? WHERE id = ?`,
+    [purchased ? 1 : 0, itemId],
+    function (err) {
+      if (err) {
+        console.error("Error updating purchased status:", err);
+        return res.status(500).json({ success: false, message: "Error updating purchased status" });
+      }
+      res.json({ success: true });
+    }
+  );
+});
+
+// update purchased by POST
+router.post("/update-purchased-by", (req, res) => {
+  const { itemId, purchasedBy } = req.body;
+
+  global.db.run(
+    `UPDATE shopping_list SET purchased_by = ? WHERE id = ?`,
+    [purchasedBy, itemId],
+    function (err) {
+      if (err) {
+        console.error("Error updating purchased by:", err);
+        return res.status(500).json({ success: false, message: "Error updating purchased by" });
+      }
+      res.json({ success: true });
+    }
+  );
+});
+
+// finalise menu POST
+router.post("/finalise-menu/:groupId", (req, res) => {
+  const groupId = req.params.groupId;
+
+  // get the food item with the most votes for the specific group
+  global.db.get(
+    `SELECT group_food.food_id, group_food.food_name, COUNT(food_votes.food_id) AS vote_count
+     FROM group_food
+     LEFT JOIN food_votes ON group_food.food_id = food_votes.food_id
+     WHERE group_food.group_id = ?
+     GROUP BY group_food.food_id
+     ORDER BY vote_count DESC
+     LIMIT 1`,
+    [groupId],
+    (err, food) => {
+      if (err) {
+        console.error("Error fetching food votes:", err);
+        return res.status(500).send("Error fetching food votes");
+      }
+
+      if (food) {
+        // update the food item to be confirmed
+        global.db.run(
+          `UPDATE group_food SET food_confirmed = 1 WHERE food_id = ?`,
+          [food.food_id],
+          (err) => {
+            if (err) {
+              console.error("Error confirming food:", err);
+              return res.status(500).send("Error confirming food");
+            }
+
+            res.json({ success: true, confirmedItems: [food] });
+          }
+        );
+      } else {
+        res.json({ success: false, message: "No food items to confirm" });
       }
     }
   );
@@ -135,22 +227,17 @@ router.post("/vote", (req, res) => {
 router.get("/group/:groupId", (req, res) => {
   const groupId = req.params.groupId;
 
-  // get group information
   global.db.get(
     `SELECT * FROM groups WHERE group_id = ?`,
     [groupId],
     (err, group) => {
-      if (err || !group) {
-        console.error("Error fetching group details:", err);
-        return res.status(404).send("Group not found 1");
+      if (err) {
+        console.error("Error fetching group:", err);
+        return res.status(500).send("Error fetching group");
       }
 
-      // get member information
       global.db.all(
-        `SELECT users.user_id, users.user_name 
-                 FROM group_members
-                 JOIN users ON group_members.user_id = users.user_id
-                 WHERE group_members.group_id = ?`,
+        `SELECT * FROM group_members WHERE group_id = ?`,
         [groupId],
         (err, members) => {
           if (err) {
@@ -158,7 +245,6 @@ router.get("/group/:groupId", (req, res) => {
             return res.status(500).send("Error fetching group members");
           }
 
-          // get the group food information
           global.db.all(
             `SELECT * FROM group_food WHERE group_id = ?`,
             [groupId],
@@ -168,7 +254,23 @@ router.get("/group/:groupId", (req, res) => {
                 return res.status(500).send("Error fetching group food");
               }
 
-              res.render("group-page", { group, members, groupFood });
+              global.db.all(
+                `SELECT * FROM shopping_list WHERE group_id = ?`,
+                [groupId],
+                (err, shoppingList) => {
+                  if (err) {
+                    console.error("Error fetching shopping list:", err);
+                    return res.status(500).send("Error fetching shopping list");
+                  }
+
+                  res.render("group-page", {
+                    group,
+                    members,
+                    groupFood,
+                    shoppingList
+                  });
+                }
+              );
             }
           );
         }
