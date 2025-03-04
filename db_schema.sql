@@ -62,6 +62,7 @@ CREATE TABLE IF NOT EXISTS group_food (
 
 CREATE TABLE IF NOT EXISTS food_votes (
     food_id INTEGER NOT NULL,  -- Foreign key from group_food
+    group_id INTEGER NOT NULL,  -- Foreign key from groups
     user_id INTEGER NOT NULL,  -- Foreign key from users
     PRIMARY KEY (food_id, user_id),  -- Ensures that each user can vote only once per food item
 
@@ -70,14 +71,16 @@ CREATE TABLE IF NOT EXISTS food_votes (
 );
 
 
--- tables for group shared grocery list --
-CREATE TABLE IF NOT EXISTS grocery_list(
-    grocery_id INTEGER PRIMARY KEY AUTOINCREMENT,
-    group_id INTEGER NOT NULL, -- foreign key from groups --
-    grocery_name TEXT NOT NULL,
-    grocery_qty INTEGER NOT NULL,
-    grocery_unit TEXT,
-    grocery_purchased BOOLEAN DEFAULT 0,
+-- tables for group shared shopping list --
+CREATE TABLE IF NOT EXISTS shopping_list (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  group_id INTEGER,
+  food_name TEXT,
+  ingredient_name TEXT,
+  quantity INTEGER,
+  unit TEXT,
+  purchased INTEGER,
+  purchased_by TEXT,
 
     FOREIGN KEY(group_id) REFERENCES groups(group_id)
 );

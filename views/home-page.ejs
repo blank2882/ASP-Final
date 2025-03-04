@@ -13,6 +13,13 @@
         <button onclick="window.location.href='/planner/create-group'">
             Create new group
         </button>
+        <ul>
+            <% groups.forEach(group => { %>
+                <li>
+                    <a href="/planner/group/<%= group.group_id %>"><%= group.group_name %></a>
+                </li>
+            <% }); %>
+        </ul>
     </div>
     <!-- section 2: upcoming meals -->
     <!-- section 3: cooking assistant -->
