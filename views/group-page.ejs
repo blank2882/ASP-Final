@@ -157,51 +157,35 @@
                   <div class="col-md-6">
                     <!-- suggested items column -->
                     <h5>Suggested Items</h5>
-                    <table class="table">
-                      <tbody>
-                        <tr>
-                          <td><input type="radio" name="food" /></td>
-                          <!-- a program will provide a food suggestion here -->
-                          <td>Food suggestion</td>
-                          <!-- voting -->
-                          <td>
-                            <!-- like button -->
-                            <button
-                              id="like-1"
-                              class="btn btn-outline-success"
-                              onclick="vote(1, 'like')"
-                            >
-                              <img
-                                src="/assets/like.png"
-                                alt="like"
-                                width="20"
-                                height="20"
+                    <form action="/planner/vote" method="POST">
+                      <input
+                        type="hidden"
+                        name="groupId"
+                        value="<%= group.group_id %>"
+                      />
+                      <table class="table">
+                        <tbody>
+                          <% groupFood.forEach(food => { %>
+                          <tr>
+                            <td>
+                              <input
+                                type="radio"
+                                name="foodId"
+                                value="<%= food.food_id %>"
                               />
-                            </button>
-                            <span id="like-count-1">0</span>
+                            </td>
+                            <!-- a program will provide a food suggestion here -->
+                            <td><p><%= food.food_name %></p></td>
+                          </tr>
+                          <% }); %>
+                        </tbody>
+                      </table>
 
-                            <!-- dislike button -->
-                            <button
-                              id="dislike-1"
-                              class="btn btn-outline-danger ms-2"
-                              onclick="vote(1, 'dislike')"
-                            >
-                              <img
-                                src="/assets/dislike.png"
-                                alt="dislike"
-                                width="20"
-                                height="20"
-                              />
-                            </button>
-                            <span id="dislike-count-1">0</span>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                    <!-- add suggestion button -->
-                    <button class="btn btn-dark">Add suggestion</button>
-                    <!-- remove suggestion button -->
-                    <button class="btn btn-dark">Remove suggestion</button>
+                      <!-- submit vote button -->
+                      <button type="submit" class="btn btn-dark">
+                        Submit Vote
+                      </button>
+                    </form>
                   </div>
 
                   <!-- confirmed item column, after the voting is finalized -->
@@ -260,6 +244,5 @@
       integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
       crossorigin="anonymous"
     ></script>
-    <script src="/js/group-page.js"></script>
   </body>
 </html>
