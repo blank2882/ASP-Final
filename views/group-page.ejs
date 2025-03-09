@@ -1,366 +1,419 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Group Page</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
-      crossorigin="anonymous"
-    />
-  </head>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Group Page</title>
+		<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+			integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+			crossorigin="anonymous"
+		/>
+	</head>
 
-  <body>
-    <!-- nav bar -->
-    <nav id="navbar" class="navbar navbar-expand-lg navbar-light bg-success">
-      <div class="container-fluid">
-        <!-- application name -->
-        <a class="navbar-brand" href="/home-page">
-          <img
-            src="/assets/feastly.png"
-            alt="feastly logo"
-            width="100"
-            height="100"
-            class="d-inline-block align-text-top ms-3"
-          />
-        </a>
+	<body>
+		<!-- nav bar -->
+		<nav id="navbar" class="navbar navbar-expand-lg navbar-light bg-success">
+			<div class="container-fluid">
+				<!-- application name -->
+				<a class="navbar-brand" href="/home-page">
+					<img
+						src="/assets/feastly.png"
+						alt="feastly logo"
+						width="100"
+						height="100"
+						class="d-inline-block align-text-top ms-3"
+					/>
+				</a>
 
-        <!-- when the screen becomes small, the links in the nav bar switches to a button -->
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNav"
-          aria-controls="navbarNav"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
+				<!-- when the screen becomes small, the links in the nav bar switches to a button -->
+				<button
+					class="navbar-toggler"
+					type="button"
+					data-bs-toggle="collapse"
+					data-bs-target="#navbarNav"
+					aria-controls="navbarNav"
+					aria-expanded="false"
+					aria-label="Toggle navigation"
+				>
+					<span class="navbar-toggler-icon"></span>
+				</button>
 
-        <!-- navigation links -->
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav ms-auto">
-            <li class="nav-item">
-              <a class="nav-link" href="/">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/#about-us">About Us</a>
-            </li>
-            <li class="nav-item">
-              <!-- logout button to end user session -->
-              <form action="/accounts/logout" method="POST" class="d-inline">
-                <button type="submit" class="btn btn-link nav-link">
-                  Logout
-                </button>
-              </form>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
+				<!-- navigation links -->
+				<div class="collapse navbar-collapse" id="navbarNav">
+					<ul class="navbar-nav ms-auto">
+						<li class="nav-item">
+							<a class="nav-link" href="/home-page">Home</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="/#about-us">About Us</a>
+						</li>
+						<li class="nav-item">
+							<!-- logout button to end user session -->
+							<form action="/accounts/logout" method="POST" class="d-inline">
+								<button type="submit" class="btn btn-link nav-link">
+									Logout
+								</button>
+							</form>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
 
-    <!-- display group name -->
-    <br />
-    <h1><%= group.group_name %></h1>
-    <br />
+		<!-- display group name -->
+		<br />
+		<h1><%= group.group_name %></h1>
+		<br />
+		<h4>Group invite code: <%= group.group_code %></h4>
 
-    <!-- page nav tabs -->
-    <div class="d-flex justify-content-center">
-      <ul class="nav nav-tabs" id="groupTabs" role="tablist">
-        <li class="nav-item me-3" role="presentation">
-          <a
-            class="nav-link active"
-            id="general-tab"
-            data-bs-toggle="tab"
-            href="#general"
-            role="tab"
-            aria-controls="general"
-            aria-selected="true"
-          >
-            General
-          </a>
-        </li>
+		<!-- page nav tabs -->
+		<div class="d-flex justify-content-center">
+			<ul class="nav nav-tabs" id="groupTabs" role="tablist">
+				<li class="nav-item me-3" role="presentation">
+					<a
+						class="nav-link active"
+						id="general-tab"
+						data-bs-toggle="tab"
+						href="#general"
+						role="tab"
+						aria-controls="general"
+						aria-selected="true"
+					>
+						General
+					</a>
+				</li>
 
-        <li class="nav-item me-3" role="presentation">
-          <a
-            class="nav-link"
-            id="food-tab"
-            data-bs-toggle="tab"
-            href="#food"
-            role="tab"
-            aria-controls="food"
-            aria-selected="false"
-          >
-            Food
-          </a>
-        </li>
+				<li class="nav-item me-3" role="presentation">
+					<a
+						class="nav-link"
+						id="food-tab"
+						data-bs-toggle="tab"
+						href="#food"
+						role="tab"
+						aria-controls="food"
+						aria-selected="false"
+					>
+						Food
+					</a>
+				</li>
 
-        <li class="nav-item me-3" role="presentation">
-          <a
-            class="nav-link"
-            id="shopping-tab"
-            data-bs-toggle="tab"
-            href="#shopping"
-            role="tab"
-            aria-controls="shopping"
-            aria-selected="false"
-          >
-            Shopping list
-          </a>
-        </li>
-      </ul>
-    </div>
+				<li class="nav-item me-3" role="presentation">
+					<a
+						class="nav-link"
+						id="shopping-tab"
+						data-bs-toggle="tab"
+						href="#shopping"
+						role="tab"
+						aria-controls="shopping"
+						aria-selected="false"
+					>
+						Shopping list
+					</a>
+				</li>
+			</ul>
+		</div>
 
-    <!-- tab content -->
-    <div class="tab-content" id="groupTabsContent">
-      <!-- general tab -->
-      <div
-        class="tab-pane fade show active"
-        id="general"
-        role="tabpanel"
-        aria-labelledby="general-tab"
-      >
-        <div class="mt-3">
-          <p>Description: <%= group.group_description %></p>
-          <p>Location: <%= group.group_meet_location %></p>
-          <p>Date: <%= group.group_meet_date %></p>
-          <p>Time: <%= group.group_meet_time %></p>
+		<!-- tab content -->
+		<div class="tab-content" id="groupTabsContent">
+			<!-- general tab -->
+			<div
+				class="tab-pane fade show active"
+				id="general"
+				role="tabpanel"
+				aria-labelledby="general-tab"
+			>
+				<div class="mt-3">
+					<p><strong>Description:</strong> <%= group.group_description %></p>
+				</div>
 
-          <h2>Members</h2>
-          <ul>
-            <% members.forEach(member => { %>
-            <li><%= member.user_name %></li>
-            <% }); %>
-          </ul>
-        </div>
-      </div>
+				<div class="mb-3">
+					<p><strong>Location:</strong> <%= group.group_meet_location %></p>
+					<p><strong>Date:</strong> <%= group.group_meet_date %></p>
+					<p><strong>Time:</strong> <%= group.group_meet_time %></p>
+				</div>
 
-      <!-- food tab -->
-      <div
-        class="tab-pane fade"
-        id="food"
-        role="tabpanel"
-        aria-labelledby="food-tab"
-      >
-        <!-- voting table -->
-        <div class="mt-3">
-          <div class="container mt-4">
-            <!-- header -->
-            <h2 class="text-center">Voting</h2>
+				<div class="mb-3">
+					<h2>Members</h2>
+					<ul>
+						<% members.forEach(member => { %>
+							<li><%= member.user_name %></li>
+						<% }); %>
+					</ul>
+				</div>
+			</div>
 
-            <div class="card mt-3">
-              <div class="card-body">
-                <div class="row">
-                  <div class="col-md-6">
-                    <!-- suggested items column -->
-                    <h5>Suggested Items</h5>
-                    <form id="votingForm" action="/planner/vote" method="POST">
-                      <input
-                        type="hidden"
-                        name="groupId"
-                        value="<%= group.group_id %>"
-                      />
-                      <table id="suggestedItemsTable" class="table">
-                        <tbody>
-                          <% groupFood.forEach(food => { %>
-                          <tr>
-                            <td>
-                              <input
-                                type="radio"
-                                name="foodId"
-                                value="<%= food.food_id %>"
-                              />
-                            </td>
-                            <!-- a program will provide a food suggestion here -->
-                            <td><p><%= food.food_name %></p></td>
-                          </tr>
-                          <% }); %>
-                        </tbody>
-                      </table>
+			<!-- food tab -->
+			<div class="tab-pane fade" id="food" role="tabpanel" aria-labelledby="food-tab">
+    			<div class="mt-3">
+        			<div class="container mt-4">
+            			<div class="card mt-3">
+                			<div class="card-body">
+                    			<div class="row">
+                        			<div class="col-md-6">
+                            			<!-- food suggestion form -->
+                            			<form action="/planner/suggest-food" method="POST">
+                                			<input type="hidden" name="groupId" value="<%= group.group_id %>">
+                                			<div class="mb-3">
+                                    			<label for="foodName" class="form-label">Food suggestion: </label>
+                                    			<input type="text" class="form-control" id="foodName" name="foodName" required>
+                                			</div>
+                                			<button type="submit" class="btn btn-primary">Suggest Food</button>
+                            			</form>
 
-                      <!-- submit vote button -->
-                      <button type="submit" class="btn btn-dark">
-                        Submit Vote
-                      </button>
-                    </form>
-                  </div>
+										<br>
 
-                  <!-- confirmed item column, after the voting is finalized -->
-                  <div class="col-md-6">
-                    <h5>Confirmed Items</h5>
-                    <table id="confirmedItemsTable" class="table">
-                      <!-- dynamically populated confirmed items will be here -->
-                      <tbody>
-                      </tbody>
-                    </table>
-                    <button id="finaliseMenuButton" class="btn btn-dark">Finalise menu</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+                            			<!-- suggested food table -->
+                            			<table class="table">
+                                			<thead>
+                                    			<tr>
+                                        			<th>Food suggestion</th>
+                                        			<th>Votes</th>
+                                        			<th>Actions</th>
+                                    			</tr>
+                                			</thead>
+                                			<tbody>
+                                    			<% groupFood.filter(food => food.food_confirmed === 0).forEach(food => { %>
+                                        			<tr>
+                                            			<td><%= food.food_name %></td>
+                                            			<td><%= food.voteCount || 0 %></td>
+                                            			<td>
+                                                			<!-- food voting -->
+                                                			<form action="/planner/vote-food" method="POST" style="display: inline;">
+                                                    			<input type="hidden" name="foodId" value="<%= food.food_id %>">
+                                                    			<input type="hidden" name="groupId" value="<%= group.group_id %>">
+                                                    			<input type="hidden" name="voteValue" value="1">
+                                                    			<button type="submit" class="btn btn-outline-secondary">👍</button>
+                                                			</form>
 
-      <!-- shopping list tab -->
-      <div
-        class="tab-pane fade"
-        id="shopping"
-        role="tabpanel"
-        aria-labelledby="shopping-tab"
-      >
-        <div class="mt-3">
-          <h2>Shopping List</h2>
-          <form id="shoppingListForm" action="/planner/add-shopping-item" method="POST">
-            <input type="hidden" name="groupId" value="<%= group.group_id %>" />
-            <div class="mb-3">
-              <label for="foodName" class="form-label">Food Name</label>
-              <input type="text" class="form-control" id="foodName" name="foodName" required />
-            </div>
-            <div class="mb-3">
-              <label for="ingredientName" class="form-label">Ingredient Name</label>
-              <input type="text" class="form-control" id="ingredientName" name="ingredientName" required />
-            </div>
-            <div class="mb-3">
-              <label for="quantity" class="form-label">Quantity</label>
-              <input type="number" class="form-control" id="quantity" name="quantity" required />
-            </div>
-            <div class="mb-3">
-              <label for="unit" class="form-label">Unit</label>
-              <input type="text" class="form-control" id="unit" name="unit" />
-            </div>
-            <button type="submit" class="btn btn-dark">Add Item</button>
-          </form>
+                                                			<form action="/planner/vote-food" method="POST" style="display: inline;">
+                                                    			<input type="hidden" name="foodId" value="<%= food.food_id %>">
+                                                    			<input type="hidden" name="groupId" value="<%= group.group_id %>">
+                                                    			<input type="hidden" name="voteValue" value="-1">
+                                                    			<button type="submit" class="btn btn-outline-secondary">👎</button>
+                                                			</form>
 
-          <h3 class="mt-4">Items</h3>
-          <table id="shoppingListTable" class="table">
-            <thead>
-              <tr>
-                <th>Food</th>
-                <th>Ingredient</th>
-                <th>Quantity</th>
-                <th>Unit</th>
-                <th>Purchased</th>
-                <th>Purchased By</th>
-              </tr>
-            </thead>
-            <tbody>
-              <% shoppingList.forEach(item => { %>
-              <tr>
-                <td><%= item.food_name %></td>
-                <td><%= item.ingredient_name %></td>
-                <td><%= item.quantity %></td>
-                <td><%= item.unit %></td>
-                <td>
-                  <input type="checkbox" class="purchased-checkbox" data-item-id="<%= item.id %>" <%= item.purchased ? 'checked' : '' %> />
-                </td>
-                <td>
-                  <input type="text" class="form-control purchased-by" data-item-id="<%= item.id %>" value="<%= item.purchased_by %>" <%= item.purchased ? '' : 'disabled' %> />
-                </td>
-              </tr>
-              <% }); %>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
+                                                			<!-- delete food button for suggestor -->
+                                                			<% if (food.user_id === user?.user_id) { %>
+                                                    			<form action="/planner/delete-food" method="POST" style="display: inline;">
+                                                        			<input type="hidden" name="foodId" value="<%= food.food_id %>">
+                                                        			<input type="hidden" name="groupId" value="<%= group.group_id %>">
+                                                        			<button type="submit" class="btn btn-danger">Delete</button>
+                                                    			</form>
+                                                			<% } %>
 
-    <!-- footer -->
-    <footer class="bg-success-subtle text-center p-3 mt-5">
-      <a href="/#about-us">About Us</a>
-      <p>&copy; 2025 Feastly</p>
-    </footer>
+                                                			<!-- confirm food button for leader -->
+                                                			<% if (group.group_leader === user?.user_id) { %>
+                                                    			<form action="/planner/confirm-food" method="POST" style="display: inline;">
+                                                        			<input type="hidden" name="foodId" value="<%= food.food_id %>">
+                                                        			<input type="hidden" name="groupId" value="<%= group.group_id %>">
+                                                        			<button type="submit" class="btn btn-success">Confirm</button>
+                                                    			</form>
+                                                			<% } %>
+                                            			</td>
+                                        			</tr>
+                                    			<% }); %>
+                                			</tbody>
+                            			</table>
+                        			</div>
 
-    <!-- bootstrap popper for the dropdowns in navbar -->
-    <script
-      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-      integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
-      integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
-      crossorigin="anonymous"
-    ></script>
-    <script>
-      document.getElementById('finaliseMenuButton').addEventListener('click', function() {
-        const groupId = '<%= group.group_id %>';
-        fetch(`/planner/finalise-menu/${groupId}`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          }
-        })
-        .then(response => response.json())
-        .then(data => {
-          if (data.success) {
-            const confirmedItemsTable = document.getElementById('confirmedItemsTable').querySelector('tbody');
-            confirmedItemsTable.innerHTML = '';
-            data.confirmedItems.forEach(item => {
-              const newRow = document.createElement('tr');
-              newRow.innerHTML = `
-                <td>✔️ ${item.food_name}</td>
-                <td><button class="btn btn-dark">Cook with Assistant</button></td>
-              `;
-              confirmedItemsTable.appendChild(newRow);
-            });
-          }
-        })
-        .catch(error => console.error('Error:', error));
-      });
+                        			<!-- confirmed food list -->
+                        			<div class="col-md-6">
+                            			<div class="card">
+                                			<div class="card-header bg-success text-white">
+                                    			Confirmed foods
+                                			</div>
+                                			<div class="card-body">
+                                    			<ul class="list-group">
+                                        			<% groupFood.filter(food => food.food_confirmed === 1).forEach(food => { %>
+                                            			<li class="list-group-item"><%= food.food_name %></li>
+                                        			<% }); %>
+                                    			</ul>
+                                			</div>
+                            			</div>
+                        			</div> 
+                    			</div> 
+                			</div>
+            			</div>
+        			</div>
+    			</div>
+			</div>
 
-      document.querySelectorAll('.purchased-checkbox').forEach(checkbox => {
-        checkbox.addEventListener('change', function() {
-          const itemId = this.getAttribute('data-item-id');
-          const purchased = this.checked;
-          const purchasedByInput = document.querySelector(`.purchased-by[data-item-id="${itemId}"]`);
-          purchasedByInput.disabled = !purchased;
+			<!-- shopping list tab -->
+			<div
+				class="tab-pane fade"
+				id="shopping"
+				role="tabpanel"
+				aria-labelledby="shopping-tab"
+			>
+				<!-- add ingredient form -->
+				<form action="/planner/add-ingredient" method="POST">
+    				<input type="hidden" name="groupId" value="<%= group.group_id %>">
+    				<div class="mb-3">
+        				<label for="ingredientName" class="form-label">Ingredient name</label>
+        				<input type="text" class="form-control" id="ingredientName" name="ingredientName" required>
+    				</div>
 
-          fetch(`/planner/update-purchased-status`, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ itemId, purchased })
-          })
-          .then(response => response.json())
-          .then(data => {
-            if (!data.success) {
-              console.error('Error updating purchased status:', data.message);
-            }
-          })
-          .catch(error => console.error('Error:', error));
-        });
-      });
+    				<div class="mb-3">
+        				<label for="quantity" class="form-label">Quantity</label>
+        				<input type="number" class="form-control" id="quantity" name="quantity" required>
+    				</div>
 
-      document.querySelectorAll('.purchased-by').forEach(input => {
-        input.addEventListener('blur', function() {
-          const itemId = this.getAttribute('data-item-id');
-          const purchasedBy = this.value;
+    				<div class="mb-3">
+        				<label for="unit" class="form-label">Unit</label>
+        				<select class="form-control" id="unit" name="unit" required>
+							<option value="pieces">Pieces</option>
+            				<option value="grams">Grams</option>
+            				<option value="kg">Kilograms</option>
+            				<option value="liters">Milliliters</option>
+            				<option value="ml">Liters</option>
+        				</select>
+    				</div>
 
-          fetch(`/planner/update-purchased-by`, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ itemId, purchasedBy })
-          })
-          .then(response => response.json())
-          .then(data => {
-            if (data.success) {
-              this.disabled = true;
-              const checkbox = document.querySelector(`.purchased-checkbox[data-item-id="${itemId}"]`);
-              checkbox.disabled = true;
-            } else {
-              console.error('Error updating purchased by:', data.message);
-            }
-          })
-          .catch(error => console.error('Error:', error));
-        });
-      });
-    </script>
-  </body>
+    				<button type="submit" class="btn btn-primary">Add ingredient</button>
+				</form>
+
+				<br>
+
+				<!-- shopping list -->
+				<table class="table">
+    				<thead>
+        				<tr>
+            				<th>Ingredient</th>
+            				<th>Quantity</th>
+            				<th>Unit</th>
+            				<th>Actions</th>
+        				</tr>
+    				</thead>
+    				<tbody>
+        				<% shoppingList.forEach(item => { %>
+            				<tr>
+                				<td><%= item.ingredient_name %></td>
+                				<td><%= item.quantity %></td>
+                				<td><%= item.unit %></td>
+                				<td>
+                    				<!-- actions -->
+									<% if (item.purchased === 1) { %>
+                        				<span>Purchased by <%= item.purchased_by %></span>
+                    				<% } else { %>
+										<!-- mark as purchased button -->
+										<form action="/planner/mark-purchased" method="POST" style="display: inline;">
+                            				<input type="hidden" name="itemId" value="<%= item.id %>">
+                            				<input type="hidden" name="groupId" value="<%= group.group_id %>">
+                            				<button type="submit" class="btn btn-success">Mark as purchased</button>
+                        				</form>
+
+										<!-- delete button(only for suggester) -->
+                        				<% if (item.user_id === user?.user_id) { %>
+											<form action="/planner/delete-ingredient" method="POST" style="display: inline;">
+												<input type="hidden" name="itemId" value="<%= item.id %>">
+												<input type="hidden" name="groupId" value="<%= group.group_id %>">
+												<button type="submit" class="btn btn-danger">Delete</button>
+											</form>
+										<% } %>
+                    				<% } %>
+                				</td>
+            				</tr>
+        				<% }); %>
+    				</tbody>
+				</table>
+			</div>
+		</div>
+
+		<!-- footer -->
+		<footer class="bg-success-subtle text-center p-3 mt-5">
+			<a href="/#about-us">About Us</a>
+			<p>&copy; 2025 Feastly</p>
+		</footer>
+
+		<!-- bootstrap popper for the dropdowns in navbar -->
+		<script
+			src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+			integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+			crossorigin="anonymous"
+		></script>
+		<script
+			src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+			integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
+			crossorigin="anonymous"
+		></script>
+		<script>
+			document.getElementById('finaliseMenuButton').addEventListener('click', function() {
+				const groupId = '<%= group.group_id %>';
+				fetch(`/planner/finalise-menu/${groupId}`, {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json'
+					}
+				})
+				.then(response => response.json())
+				.then(data => {
+					if (data.success) {
+						const confirmedItemsTable = document.getElementById('confirmedItemsTable').querySelector('tbody');
+						confirmedItemsTable.innerHTML = '';
+						data.confirmedItems.forEach(item => {
+							const newRow = document.createElement('tr');
+							newRow.innerHTML = `
+								<td>✔️ ${item.food_name}</td>
+								<td><button class="btn btn-dark">Cook with Assistant</button></td>
+							`;
+							confirmedItemsTable.appendChild(newRow);
+						});
+					}
+				})
+				.catch(error => console.error('Error:', error));
+			});
+
+			document.querySelectorAll('.purchased-checkbox').forEach(checkbox => {
+				checkbox.addEventListener('change', function() {
+					const itemId = this.getAttribute('data-item-id');
+					const purchased = this.checked;
+					const purchasedByInput = document.querySelector(`.purchased-by[data-item-id="${itemId}"]`);
+					purchasedByInput.disabled = !purchased;
+
+					fetch(`/planner/update-purchased-status`, {
+						method: 'POST',
+						headers: {
+							'Content-Type': 'application/json'
+						},
+						body: JSON.stringify({ itemId, purchased })
+					})
+					.then(response => response.json())
+					.then(data => {
+						if (!data.success) {
+							console.error('Error updating purchased status:', data.message);
+						}
+					})
+					.catch(error => console.error('Error:', error));
+				});
+			});
+
+			document.querySelectorAll('.purchased-by').forEach(input => {
+				input.addEventListener('blur', function() {
+					const itemId = this.getAttribute('data-item-id');
+					const purchasedBy = this.value;
+
+					fetch(`/planner/update-purchased-by`, {
+						method: 'POST',
+						headers: {
+							'Content-Type': 'application/json'
+						},
+						body: JSON.stringify({ itemId, purchasedBy })
+					})
+					.then(response => response.json())
+					.then(data => {
+						if (data.success) {
+							this.disabled = true;
+							const checkbox = document.querySelector(`.purchased-checkbox[data-item-id="${itemId}"]`);
+							checkbox.disabled = true;
+						} else {
+							console.error('Error updating purchased by:', data.message);
+						}
+					})
+					.catch(error => console.error('Error:', error));
+				});
+			});
+		</script>
+	</body>
 </html>

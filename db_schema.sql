@@ -36,6 +36,7 @@ CREATE TABLE IF NOT EXISTS groups (
     group_meet_location TEXT NOT NULL,
     group_meet_date DATE NOT NULL,
     group_meet_time TIME NOT NULL,
+    group_code TEXT NOT NULL UNIQUE, -- unique group code for each group --
 
     FOREIGN KEY(group_leader) REFERENCES users(user_id)
 );
@@ -54,17 +55,20 @@ CREATE TABLE IF NOT EXISTS group_members (
 CREATE TABLE IF NOT EXISTS group_food (
     food_id INTEGER PRIMARY KEY AUTOINCREMENT,
     group_id INTEGER NOT NULL, -- foreign key from groups --
+    user_id INTEGER NOT NULL, -- foreign key from users --
     food_name TEXT NOT NULL,
     food_confirmed BOOLEAN NOT NULL,
 
-    FOREIGN KEY(group_id) REFERENCES groups(group_id)
+    FOREIGN KEY(group_id) REFERENCES groups(group_id),
+    FOREIGN KEY(user_id) REFERENCES users(user_id)
 );
 
 CREATE TABLE IF NOT EXISTS food_votes (
-    food_id INTEGER NOT NULL,  -- Foreign key from group_food
-    group_id INTEGER NOT NULL,  -- Foreign key from groups
-    user_id INTEGER NOT NULL,  -- Foreign key from users
-    PRIMARY KEY (food_id, user_id),  -- Ensures that each user can vote only once per food item
+    food_id INTEGER NOT NULL,  -- foreign key from group_food
+    group_id INTEGER NOT NULL,  -- foreign key from groups
+    user_id INTEGER NOT NULL,  -- foreign key from users
+    vote_value INTEGER NOT NULL DEFAULT 0,
+    PRIMARY KEY (food_id, user_id),  -- ensures that each user can vote only once per food item
 
     FOREIGN KEY(food_id) REFERENCES group_food(food_id) ON DELETE CASCADE,
     FOREIGN KEY(user_id) REFERENCES users(user_id) ON DELETE CASCADE
@@ -73,16 +77,17 @@ CREATE TABLE IF NOT EXISTS food_votes (
 
 -- tables for group shared shopping list --
 CREATE TABLE IF NOT EXISTS shopping_list (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
-  group_id INTEGER,
-  food_name TEXT,
-  ingredient_name TEXT,
-  quantity INTEGER,
-  unit TEXT,
-  purchased INTEGER,
-  purchased_by TEXT,
-
-    FOREIGN KEY(group_id) REFERENCES groups(group_id)
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    group_id INTEGER NOT NULL, -- foreign key from groups
+    user_id INTEGER NOT NULL, -- foreign key from users (autofill loged in user)
+    ingredient_name TEXT NOT NULL,
+    quantity INTEGER NOT NULL,
+    unit TEXT NOT NULL,
+    purchased BOOLEAN DEFAULT 0,
+    purchased_by TEXT, 
+    
+    FOREIGN KEY(group_id) REFERENCES groups(group_id) ON DELETE CASCADE,
+    FOREIGN KEY(user_id) REFERENCES users(user_id) ON DELETE CASCADE
 );
 
 -- tables for recipe and cooking assistant --

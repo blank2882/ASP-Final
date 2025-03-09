@@ -7,12 +7,34 @@
 </head>
 <body>
     <h1>Welcome, <%= user.user_name %>!</h1>
+
+    <!-- join group -->
+    <div class="join-group">
+        <h2>Join a group</h2>
+        <form action="/planner/join-group" method="POST">
+            <div class="mb-3">
+                <label for="group_code" class="form-label">Group code: </label>
+                <input
+                    type="text"
+                    class="form-control"
+                    id="group_code"
+                    name="group_code"
+                    placeholder="Enter group code"
+                    required
+                    maxlength="8"
+                />
+            </div>
+            <button type="submit" class="btn btn-success">Join group</button>
+        </form>
+    </div>
+
     <!-- section 1: my groups -->
     <div class="group-card">
-        <h1>My groups</h1>
+        <h2>My groups</h2>
         <button onclick="window.location.href='/planner/create-group'">
             Create new group
         </button>
+
         <ul>
             <% groups.forEach(group => { %>
                 <li>
