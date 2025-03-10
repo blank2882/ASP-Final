@@ -90,43 +90,7 @@ CREATE TABLE IF NOT EXISTS shopping_list (
     FOREIGN KEY(user_id) REFERENCES users(user_id) ON DELETE CASCADE
 );
 
--- tables for recipe and cooking assistant --
-CREATE TABLE IF NOT EXISTS recipes (
-    recipe_id INTEGER PRIMARY KEY AUTOINCREMENT,
-    recipe_name TEXT NOT NULL, 
-    recipe_description TEXT NOT NULL,
-    recipe_duration INTEGER NOT NULL CHECK(recipe_duration>0), --duration in minutes--
-    recipe_servings INTEGER NOT NULL CHECK(recipe_servings>0) --minimum more than 0 servings per recipe--
-);
 
-CREATE TABLE IF NOT EXISTS recipe_ingredients (
-    ingredient_id INTEGER PRIMARY KEY AUTOINCREMENT,
-    recipe_id INTEGER NOT NULL,  -- foreign key from recipes --
-    ingredient_name TEXT NOT NULL,
-    ingredient_qty REAL NOT NULL CHECK(ingredient_qty>0),
-    ingredient_unit TEXT NOT NULL,
-
-    FOREIGN KEY(recipe_id) REFERENCES recipes(recipe_id) ON DELETE CASCADE
-);
-
-CREATE TABLE IF NOT EXISTS recipe_tools (
-    tool_id INTEGER PRIMARY KEY AUTOINCREMENT,
-    recipe_id INTEGER NOT NULL, -- foreign key from recipes --
-    tool_name TEXT NOT NULL,
-
-    FOREIGN KEY (recipe_id) REFERENCES recipes(recipe_id) ON DELETE CASCADE
-);
-
-CREATE TABLE IF NOT EXISTS steps (
-    step_id INTEGER PRIMARY KEY AUTOINCREMENT,
-    recipe_id INTEGER NOT NULL, -- foreign key from recipes --
-    step_number INTEGER NOT NULL CHECK(step_number > 0),
-    step_instruction TEXT NOT NULL,
-    step_duration INTEGER DEFAULT 0 CHECK(step_duration >= 0),
-
-    FOREIGN KEY (recipe_id) REFERENCES recipes(recipe_id) ON DELETE CASCADE,
-    UNIQUE (recipe_id, step_number)  -- make sure no dupe steps per recipe
-);
 
 COMMIT;
 

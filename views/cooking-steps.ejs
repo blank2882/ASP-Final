@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cooking Steps - <%= recipe.title %></title>
+    <link rel="stylesheet"  type="text/css" href="/cooking-steps.css" />
+</head>
+<body>
+    <h1>Cooking steps for <%= recipe.title %></h1>
+    
+    <br><br>
+
+    <div class="step-container">
+        <h2>Step <%= stepNumber + 1 %>:</h2>
+        <p><%= instructions[stepNumber].step %></p>
+
+        <% if (stepNumber < instructions.length - 1) { %>
+            <a href="/recipes/<%= recipe.id %>/cooking-steps?step=<%= stepNumber + 1 %>">
+                <button>Next step</button>
+            </a>
+        <% } else { %>
+            <p><strong>Dish complete!</strong></p>
+        <% } %>
+    </div>
+
+    <br>
+
+    <button class="back-button" onclick="history.back()">Back</button>
+</body>
+</html>

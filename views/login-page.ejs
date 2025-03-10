@@ -12,6 +12,25 @@
       crossorigin="anonymous"
     />
     <title>Main Page</title>
+    <style>
+			.back-button {
+    			padding: 10px 20px; 
+    			font-size: 14px;
+    			border-radius: 8%; 
+    			border: 2px solid black; 
+    			background-color: black; 
+    			color: white;
+    			cursor: pointer;
+    			transition: all 0.3s ease; 
+          margin-left: 20px;
+			}
+
+			.back-button:hover {
+    			background-color: white; 
+    			color: black; 
+    			border: 2px solid black;
+			}
+		</style>
   </head>
 
   <body>
@@ -94,6 +113,9 @@
         </div>
       </div>
     </div>
+    <br>
+
+    <button class="back-button" onclick="history.back()">Back</button>
 
     <!-- footer section -->
     <footer class="bg-success-subtle text-center p-3 mt-5">

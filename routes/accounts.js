@@ -20,7 +20,7 @@ router.post('/login-page', (req, res) => {
         bcrypt.compare(password, user.user_password, (err, result) => {
             if (result) {
                 req.session.user = user;
-                res.redirect('/home-page');
+                res.redirect('/general/home-page');
             } else {
                 res.status(401).send('Invalid email or password');
             }
@@ -40,7 +40,6 @@ router.get('/signup-page', (req, res) => {
         res.render('signup-page', { dietOptions });
     });
 });
-
 
 // signup form POST
 router.post('/signup-page', (req, res) => {

@@ -130,10 +130,13 @@ router.get('/group/:groupId', (req, res) => {
             }
 
             global.db.all(
-                `SELECT users.user_id, users.user_name 
+                `SELECT users.user_id, users.user_name, 
+                        GROUP_CONCAT(users_diet_pref.diet_name, ', ') AS diet_preferences
                  FROM group_members
                  JOIN users ON group_members.user_id = users.user_id
-                 WHERE group_members.group_id = ?`,
+                 LEFT JOIN users_diet_pref ON users.user_id = users_diet_pref.user_id
+                 WHERE group_members.group_id = ?
+                 GROUP BY users.user_id, users.user_name`,
                 [groupId],
                 (err, members) => {
                     if (err) {
@@ -170,7 +173,7 @@ router.get('/group/:groupId', (req, res) => {
                                         groupFood,
                                         shoppingList,
                                         user: req.session.user,
-										messages: req.flash()
+                                        messages: req.flash()
                                     });
                                 }
                             );
@@ -221,8 +224,8 @@ router.post('/vote-food', (req, res) => {
         [foodId, userId],
         (err, existingVote) => {
             if (err) {
-                console.error('Error checking vote:', err);
-                req.flash('error', 'Error checking vote');
+                console.error('Error voting: ', err);
+                req.flash('error', 'Error voting');
                 return res.redirect(`/planner/group/${groupId}#food`);
             }
 
@@ -233,9 +236,9 @@ router.post('/vote-food', (req, res) => {
                     function (err) {
                         if (err) {
                             console.error('Error updating vote:', err);
-                            req.flash('error', 'Error updating vote');
+                            req.flash('error', 'Error voting');
                         } else {
-                            req.flash('success', 'Vote updated successfully');
+                            req.flash('success', 'Voted successfully');
                         }
 
                         res.redirect(`/planner/group/${groupId}#food`);
@@ -248,9 +251,9 @@ router.post('/vote-food', (req, res) => {
                     function (err) {
                         if (err) {
                             console.error('Error inserting vote:', err);
-                            req.flash('error', 'Error inserting vote');
+                            req.flash('error', 'Error voting');
                         } else {
-                            req.flash('success', 'Vote added successfully');
+                            req.flash('success', 'Voted successfully');
                         }
 
                         res.redirect(`/planner/group/${groupId}#food`);
@@ -310,7 +313,6 @@ router.post('/add-ingredient', (req, res) => {
         return res.status(401).send('User not logged in');
     }
 
-    // Insert the ingredient into the shopping_list table
     global.db.run(
         `INSERT INTO shopping_list (group_id, user_id, ingredient_name, quantity, unit) VALUES (?, ?, ?, ?, ?)`,
         [groupId, userId, ingredientName, quantity, unit],
@@ -322,7 +324,6 @@ router.post('/add-ingredient', (req, res) => {
                 req.flash('success', 'Ingredient added successfully');
             }
 
-            // Redirect back to the group page and activate the Shopping tab
             res.redirect(`/planner/group/${groupId}#shopping`);
         }
     );
@@ -337,7 +338,6 @@ router.post('/mark-purchased', (req, res) => {
         return res.status(401).send('User not logged in');
     }
 
-    // Fetch the user's name
     global.db.get(
         `SELECT user_name FROM users WHERE user_id = ?`,
         [userId],
@@ -348,14 +348,13 @@ router.post('/mark-purchased', (req, res) => {
                 return res.redirect(`/planner/group/${groupId}#shopping`);
             }
 
-            // Mark the ingredient as purchased
             global.db.run(
                 `UPDATE shopping_list SET purchased = 1, purchased_by = ? WHERE id = ?`,
                 [user.user_name, itemId],
                 function (err) {
                     if (err) {
                         console.error('Error marking as purchased:', err);
-                        req.flash('error', 'Error marking as purchased');
+                        req.flash('error', 'Error when marking as purchased');
                     } else {
                         req.flash('success', 'Ingredient marked as purchased');
                     }

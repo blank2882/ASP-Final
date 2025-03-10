@@ -1,155 +1,184 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" type="text/css" href="/main.css" />
-    <!-- add the bootstrap here -->
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
-      crossorigin="anonymous"
-    />
-    <title>Main Page</title>
-  </head>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" type="text/css" href="/main.css" />
+		<!-- add the bootstrap here -->
+		<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+			integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+			crossorigin="anonymous"
+		/>
+		<title>Main Page</title>
 
-  <body>
-    <!-- navigation bar -->
-    <nav id="navbar" class="navbar navbar-expand-lg navbar-light bg-success">
-      <div class="container-fluid">
-        <!-- application name -->
-        <a class="navbar-brand" href="/">
-          <img
-            src="/assets/feastly.png"
-            alt="feastly logo"
-            width="100"
-            height="100"
-            class="d-inline-block align-text-top"
-          />
-        </a>
+		<style>
+			.back-button {
+    			padding: 10px 20px; 
+    			font-size: 14px;
+    			border-radius: 8%; 
+    			border: 2px solid black; 
+    			background-color: black; 
+    			color: white;
+    			cursor: pointer;
+    			transition: all 0.3s ease; 
+				margin-left: 20px;
+			}
 
-        <!-- when the screen becomes small, the links in the nav bar switches to a button -->
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNav"
-          aria-controls="navbarNav"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
+			.back-button:hover {
+    			background-color: white; 
+    			color: black; 
+    			border: 2px solid black;
+			}
+		</style>
+	</head>
 
-        <!-- navigation links -->
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav ms-auto">
-            <li class="nav-item">
-              <a class="nav-link" href="/">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/#about-us">About Us</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/accounts/login-page">Login</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
+	<body>
+		<!-- navigation bar -->
+		<nav id="navbar" class="navbar navbar-expand-lg navbar-light bg-success">
+			<div class="container-fluid">
+				<!-- application name -->
+				<a class="navbar-brand" href="/">
+					<img
+						src="/assets/feastly.png"
+						alt="feastly logo"
+						width="100"
+						height="100"
+						class="d-inline-block align-text-top"
+					/>
+				</a>
 
-    <!-- signup form -->
-    <div class="container mt-5">
-      <div class="row justify-content-center">
-        <div class="col-md-6">
-          <div class="card">
-            <div class="card-header bg-success text-white">Sign up</div>
-            <div class="card-body">
-              <form action="/accounts/signup-page" method="POST">
-                <div class="mb-3">
-                  <label for="username" class="form-label">Name</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="username"
-                    name="username"
-                    required
-                  />
-                </div>
+				<!-- when the screen becomes small, the links in the nav bar switches to a button -->
+				<button
+					class="navbar-toggler"
+					type="button"
+					data-bs-toggle="collapse"
+					data-bs-target="#navbarNav"
+					aria-controls="navbarNav"
+					aria-expanded="false"
+					aria-label="Toggle navigation"
+				>
+					<span class="navbar-toggler-icon"></span>
+				</button>
 
-                <div class="mb-3">
-                  <label for="email" class="form-label">Email</label>
-                  <input
-                    type="email"
-                    class="form-control"
-                    id="email"
-                    name="email"
-                    required
-                  />
-                </div>
+				<!-- navigation links -->
+				<div class="collapse navbar-collapse" id="navbarNav">
+					<ul class="navbar-nav ms-auto">
+						<li class="nav-item">
+							<a class="nav-link" href="/">Home</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="/#about-us">About Us</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="/accounts/login-page">Login</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
 
-                <div class="mb-3">
-                  <label for="password" class="form-label">Password</label>
-                  <input
-                    type="password"
-                    class="form-control"
-                    id="password"
-                    name="password"
-                    required
-                  />
-                </div>
 
-                <!-- diet pref options -->
-                <div class="mb-3">
-                  <label for="diet-options" class="form-label"
-                    >Dietary preferences:</label
-                  >
-                  <div class="d-flex flex-wrap">
-                    <% dietOptions.forEach((option, index) => { %>
-                    <div
-                      class="d-flex align-items-center p-2"
-                      style="width: 33.33%"
-                    >
-                      <input
-                        type="checkbox"
-                        id="diet_pref_<%= index %>"
-                        name="dietPreferences[]"
-                        value="<%= option.diet_name %>"
-                        class="me-2"
-                      />
-                      <label for="diet_pref_<%= index %>"
-                        ><%= option.diet_name %></label
-                      >
-                    </div>
-                    <% }); %>
-                  </div>
-                </div>
+		<!-- signup form -->
+		<div class="container mt-5">
+			<div class="row justify-content-center">
+				<div class="col-md-6">
+					<div class="card">
+						<div class="card-header bg-success text-white">Sign up</div>
+						<div class="card-body">
+							<form action="/accounts/signup-page" method="POST">
+								<div class="mb-3">
+									<label for="username" class="form-label">Name</label>
+									<input
+										type="text"
+										class="form-control"
+										id="username"
+										name="username"
+										required
+									/>
+								</div>
 
-                <button type="submit" class="btn btn-success">Sign up</button>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+								<div class="mb-3">
+									<label for="email" class="form-label">Email</label>
+									<input
+										type="email"
+										class="form-control"
+										id="email"
+										name="email"
+										required
+									/>
+								</div>
 
-    <!-- footer section -->
-    <footer class="bg-success-subtle text-center p-3 mt-5">
-      <a href="/#about-us">About Us</a>
-      <p>&copy; 2025 Feastly</p>
-    </footer>
+								<div class="mb-3">
+									<label for="password" class="form-label">Password</label>
+									<input
+										type="password"
+										class="form-control"
+										id="password"
+										name="password"
+										required
+									/>
+								</div>
 
-    <!-- bootstrap popper for the dropdowns in navbar -->
-    <script
-      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-      integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
-      integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
-      crossorigin="anonymous"
-    ></script>
-  </body>
+								<!-- diet pref options -->
+								<div class="mb-3">
+									<label for="diet-options" class="form-label"
+										>Dietary preferences:</label
+									>
+									<div class="d-flex flex-wrap">
+										<% dietOptions.forEach((option, index) => { %>
+										<div
+											class="d-flex align-items-center p-2"
+											style="width: 33.33%"
+										>
+											<input
+												type="checkbox"
+												id="diet_pref_<%= index %>"
+												name="dietPreferences[]"
+												value="<%= option.diet_name %>"
+												class="me-2"
+											/>
+											<label for="diet_pref_<%= index %>"
+												><%= option.diet_name %></label
+											>
+										</div>
+										<% }); %>
+									</div>
+								</div>
+
+								<button type="submit" class="btn btn-success">Sign up</button>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<br>
+
+    	<button class="back-button" onclick="history.back()">Back</button>
+
+		<!-- footer section -->
+		<footer class="bg-success-subtle text-center p-3 mt-5">
+			<a href="/#about-us">About Us</a>
+			<p>&copy; 2025 Feastly</p>
+		</footer>
+
+		<!-- bootstrap popper for the dropdowns in navbar -->
+		<script
+			src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+			integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+			crossorigin="anonymous"
+		></script>
+		<script
+			src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+			integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
+			crossorigin="anonymous"
+		></script>
+
+        
+	</body>
 </html>
+
+

@@ -1,0 +1,51 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+}
+
+.recipe-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3vw; 
+    justify-content: center; 
+}
+
+.card {
+    transition: 0.3s;
+    width: 20vw;
+    background: rgb(176, 227, 162);
+    border-radius: 8px;
+    overflow: hidden; /* Ensures nothing overflows */
+    text-align: center;
+}
+
+.card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+.container {
+    padding: 10px;
+}
+
+.card img {
+    width: 100%;
+    height: auto;
+    border-bottom: 2px solid whitesmoke; 
+}
+
+.back-button {
+    padding: 10px 20px; 
+    font-size: 14px;
+    border-radius: 8%; 
+    border: 2px solid black; 
+    background-color: black; 
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease; 
+}
+
+.back-button:hover {
+    background-color: white; 
+    color: black; 
+    border: 2px solid black;
+}

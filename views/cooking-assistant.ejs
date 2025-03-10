@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cooking Assistant - <%= recipe.title %></title>
+    <link rel="stylesheet"  type="text/css" href="/cooking-assistant.css" />
+</head>
+<body>
+    <h1><%= recipe.title %></h1>
+    
+    <div class="recipe-container">
+        <img src="<%= recipe.image %>" alt="<%= recipe.title %>" width="300">
+        <a href="/recipes/<%= recipe.id %>/cooking-steps?step=0">
+            <button style="height: 40px; margin-left: 20px;">Start Cooking</button>
+        </a>
+    </div>
+
+    <!-- ingredients table-->
+    <h2>Ingredients</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Ingredient</th>
+                <th>Amount</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% ingredients.forEach(ingredient => { %>
+                <tr>
+                    <td><%= ingredient.name %></td>
+                    <td><%= ingredient.amount %> <%= ingredient.unit %></td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+    <br>
+
+    <!-- tools table -->
+    <h2>Tools</h2>
+    <ul>
+        <% tools.forEach(tool => { %>
+            <li><%= tool.name %></li>
+        <% }) %>
+    </ul>
+
+    <br>
+
+    <button class="back-button" onclick="history.back()">Back</button>
+</body>
+</html>

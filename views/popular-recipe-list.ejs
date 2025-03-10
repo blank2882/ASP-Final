@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Popular Recipes</title>
+    <link rel="stylesheet" type="text/css" href="/recipes.css" />
+</head>
+<body>
+    <h1>Top 10 popular recipes</h1>
+
+    <div class="recipe-container">
+        <% recipes.forEach(recipe => { %>
+            <div class="card">
+                <img src="<%= recipe.image %>" alt="<%= recipe.title %>">
+                <div class="container">
+                    <h4><b><%= recipe.title %></b></h4>
+                    <p><a href="/recipes/<%= recipe.id %>/cooking-assistant">View recipe</a></p>
+                </div>
+            </div>
+        <% }); %>
+    </div>
+
+    <br>
+
+    <button class="back-button" onclick="history.back()">Back</button>
+
+</body>
+</html>
