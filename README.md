@@ -1,6 +1,7 @@
+<!-- in case of error 402 in terminal, change api key to: 313870517f8b43429e8cd42297a08fba as the previous key may have hit daily quota -->
 * Run these steps in order
 1. npm install
-2. npm install bcrypt
+2. npm install bcrypt --build-from-source
 3. npm install express-flash
 4. npm install axios
 5. npm install axios dotenv

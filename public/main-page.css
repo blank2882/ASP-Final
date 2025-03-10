@@ -1,0 +1,56 @@
+/* Define styles */
+#navbar {
+    display: none;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: #f8f9fa;
+    z-index: 1000;
+}
+
+.about-us-table {
+    border-left: 2px solid black;
+    /* draws left line */
+    border-right: 2px solid black;
+    /* draws right line */
+    border-top: none;
+    /* removes top border */
+    border-bottom: none;
+    /* removes bottom border */
+    border-collapse: collapse;
+    margin: auto;
+}
+
+.about-us-table td {
+    padding: 40px;
+    /* adjust padding in cells */
+    text-align: center;
+    /* centralise text in cells */
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #333;
+    min-width: 160px;
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: white;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: #575757;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown:hover .dropbtn {
+    background-color: #575757;
+}

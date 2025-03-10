@@ -12,17 +12,8 @@
       integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
       crossorigin="anonymous"
     />
+    <link rel="stylesheet" type="text/css" href="/main-page.css" />
     <title>Main Page</title>
-    <style>
-      #navbar {
-        display: none;
-        position: fixed;
-        top: 0;
-        width: 100%;
-        background-color: #f8f9fa;
-        z-index: 1000;
-      }
-    </style>
   </head>
 
   <body>
@@ -33,14 +24,12 @@
         <!-- application name -->
         <a class="navbar-brand" href="/">
           <img
-            src="/assets/feastly.png"
+            src="/assets/feastly2.png"
             alt="feastly logo"
-            width="100"
-            height="100"
+            height="50"
             class="d-inline-block align-text-top"
           />
         </a>
-
         <!-- when the screen becomes small, the links in the nav bar switches to a button -->
         <button
           class="navbar-toggler"
@@ -53,7 +42,6 @@
         >
           <span class="navbar-toggler-icon"></span>
         </button>
-
         <!-- navigation links -->
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav ms-auto">
@@ -63,73 +51,123 @@
             <li class="nav-item">
               <a class="nav-link" href="#about-us">About Us</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/accounts/login-page">Login</a>
+            <!-- Dropdown Item -->
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                id="navbarDropdown"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Accounts
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li>
+                  <a class="dropdown-item" href="/accounts/login-page">Login</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="/accounts/signup-page"
+                    >Sign Up</a
+                  >
+                </li>
+              </ul>
             </li>
+            
           </ul>
         </div>
       </div>
     </nav>
-
     <!-- Feastly start section -->
     <div
       class="d-flex justify-content-center align-items-center bg-success-subtle"
       style="height: 100vh"
     >
-      <div class="container-fluid text-center">
+      <div class="container-fluid p-5">
         <!-- header -->
-        <h1>Feastly</h1>
-
+        <img src="/assets/feastly2.png" alt="feastly logo" height="250" />
+        <br /><br />
         <!-- Log in button -->
         <button class="btn btn-success">
-          <a href="/accounts/login-page">Log in</a>
+          <a
+            href="/accounts/login-page"
+            style="color: white; text-decoration: none"
+            >Log in</a
+          >
         </button>
-
         <!-- Sign up button -->
         <button class="btn btn-success">
-          <a href="/accounts/signup-page">Sign up</a>
+          <a
+            href="/accounts/signup-page"
+            style="color: white; text-decoration: none"
+            >Sign up</a
+          >
         </button>
-
-        <p>scroll to continue</p>
+        <p>Scroll to continue</p>
+      </div>
+      <!-- images -->
+      <div class="container-fluid p-5">
+        <img
+          src="/assets/plan-ahead.jpg"
+          alt="plan-ahead"
+          height="260"
+          style="
+            transform: rotate(20deg);
+            margin-left: 150px;
+            margin-top: 140px;
+          "
+        />
+        <img
+          src="/assets/planner.jpg"
+          alt="planner"
+          height="260"
+          style="
+            transform: rotate(-20deg);
+            margin-right: 100px;
+            margin-bottom: 130px;
+          "
+        />
       </div>
     </div>
-
     <!-- about us section -->
     <div id="about-us" class="container-fluid text-center p-5">
       <!-- section title -->
-      <h1>ABOUT US</h1>
+      <h1 style="letter-spacing: 4px">ABOUT US</h1>
       <div class="about-box bg-success-subtle rounded p-4">
         <div class="mb-4">
           <!-- section title -->
-          <h2>- Who are we? -</h2>
+          <h2 style="letter-spacing: 4px">- Who are we? -</h2>
           <!-- description of what the application is about -->
-          <p>
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Id sit
-            facilis illum assumenda, ipsum aliquid non beatae, eveniet deserunt
-            ducimus atque porro repudiandae saepe adipisci reprehenderit nobis
-            veritatis quibusdam dolorum?
-          </p>
+          <table class="about-us-table">
+            <tr>
+              <td>
+                Our team is passionate about streamlining the process of meal
+                planning for users.
+              </td>
+            </tr>
+          </table>
         </div>
         <div>
           <!-- section title -->
-          <h2>- What do we do? -</h2>
+          <h2 style="letter-spacing: 4px">- What do we do? -</h2>
           <!-- description of how the application works-->
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores,
-            exercitationem doloribus sit vel vero eius! Architecto suscipit
-            numquam recusandae inventore quis vero culpa laboriosam, ut
-            reiciendis quaerat sint facere magni!
-          </p>
+          <table class="about-us-table">
+            <tr>
+              <td>
+                Feastly provides personalised features for its users to enhance
+                the meal planning process.
+              </td>
+            </tr>
+          </table>
         </div>
       </div>
     </div>
-
     <!-- footer section -->
     <footer class="bg-success-subtle text-center p-3 mt-5">
       <a href="#about-us">About Us</a>
       <p>&copy; 2025 Feastly</p>
     </footer>
-
     <!-- bootstrap popper for the dropdowns in navbar -->
     <script
       src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"

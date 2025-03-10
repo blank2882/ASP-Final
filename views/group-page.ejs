@@ -1,378 +1,517 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Group Page</title>
-		<link
-			href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-			rel="stylesheet"
-			integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
-			crossorigin="anonymous"
-		/>
-		<link rel="stylesheet"  type="text/css" href="/group-page.css" />
-	</head>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Group Page</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" type="text/css" href="/group-page.css" />
+  </head>
 
-	<body>
-		<!-- nav bar -->
-		<nav id="navbar" class="navbar navbar-expand-lg navbar-light bg-success">
-			<div class="container-fluid">
-				<!-- application name -->
-				<a class="navbar-brand" href="/home-page">
-					<img
-						src="/assets/feastly.png"
-						alt="feastly logo"
-						width="100"
-						height="100"
-						class="d-inline-block align-text-top ms-3"
-					/>
-				</a>
+  <body>
+    <!-- navigation bar -->
+    <!-- scroll down for the nav bar to appear -->
+    <nav id="navbar" class="navbar navbar-expand-lg navbar-light bg-success">
+      <div class="container-fluid">
+        <!-- application name -->
+        <a class="navbar-brand" href="/general/home-page">
+          <img
+            src="/assets/feastly2.png"
+            alt="feastly logo"
+            height="50"
+            class="d-inline-block align-text-top"
+          />
+        </a>
+        <!-- when the screen becomes small, the links in the nav bar switches to a button -->
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <!-- navigation links -->
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="/general/home-page">Home</a>
+            </li>
+            <li class="nav-item">
+              <form
+                action="/accounts/logout"
+                method="POST"
+                style="display: inline"
+              >
+                <button type="submit" class="nav-link btn btn-link">
+                  Logout
+                </button>
+              </form>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
 
-				<!-- when the screen becomes small, the links in the nav bar switches to a button -->
-				<button
-					class="navbar-toggler"
-					type="button"
-					data-bs-toggle="collapse"
-					data-bs-target="#navbarNav"
-					aria-controls="navbarNav"
-					aria-expanded="false"
-					aria-label="Toggle navigation"
-				>
-					<span class="navbar-toggler-icon"></span>
-				</button>
+    <!-- display group name -->
+    <br />
+    <div class="group-page-name">
+      <h1><%= group.group_name %></h1>
+      <br />
+      <p><b>Group invite code: </b><%= group.group_code %></p>
+    </div>
 
-				<!-- navigation links -->
-				<div class="collapse navbar-collapse" id="navbarNav">
-					<ul class="navbar-nav ms-auto">
-						<li class="nav-item">
-							<a class="nav-link" href="/home-page">Home</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="/#about-us">About Us</a>
-						</li>
-						<li class="nav-item">
-							<!-- logout button to end user session -->
-							<form action="/accounts/logout" method="POST" class="d-inline">
-								<button type="submit" class="btn btn-link nav-link">
-									Logout
-								</button>
-							</form>
-						</li>
-					</ul>
-				</div>
-			</div>
-		</nav>
+    <!-- page nav tabs -->
+    <div class="d-flex justify-content-center">
+      <ul class="nav nav-tabs" id="groupTabs" role="tablist">
+        <li class="nav-item me-3" role="presentation">
+          <a
+            class="nav-link active"
+            id="general-tab"
+            data-bs-toggle="tab"
+            href="#general"
+            role="tab"
+            aria-controls="general"
+            aria-selected="true"
+          >
+            General
+          </a>
+        </li>
 
-		<!-- display group name -->
-		<br />
-		<div class = "group-page-name">
-			<h1><%= group.group_name %></h1>
-			<br />
-			<p><b>Group invite code: </b><%= group.group_code %></p>
-		</div>
+        <li class="nav-item me-3" role="presentation">
+          <a
+            class="nav-link"
+            id="food-tab"
+            data-bs-toggle="tab"
+            href="#food"
+            role="tab"
+            aria-controls="food"
+            aria-selected="false"
+          >
+            Food
+          </a>
+        </li>
 
-		<!-- page nav tabs -->
-		<div class="d-flex justify-content-center">
-			<ul class="nav nav-tabs" id="groupTabs" role="tablist">
-				<li class="nav-item me-3" role="presentation">
-					<a
-						class="nav-link active"
-						id="general-tab"
-						data-bs-toggle="tab"
-						href="#general"
-						role="tab"
-						aria-controls="general"
-						aria-selected="true"
-					>
-						General
-					</a>
-				</li>
+        <li class="nav-item me-3" role="presentation">
+          <a
+            class="nav-link"
+            id="shopping-tab"
+            data-bs-toggle="tab"
+            href="#shopping"
+            role="tab"
+            aria-controls="shopping"
+            aria-selected="false"
+          >
+            Shopping list
+          </a>
+        </li>
+      </ul>
+    </div>
 
-				<li class="nav-item me-3" role="presentation">
-					<a
-						class="nav-link"
-						id="food-tab"
-						data-bs-toggle="tab"
-						href="#food"
-						role="tab"
-						aria-controls="food"
-						aria-selected="false"
-					>
-						Food
-					</a>
-				</li>
+    <!-- flash messages -->
+    <div class="flash-message">
+      <% if (messages.error) { %>
+      <div class="alert alert-danger"><%= messages.error %></div>
+      <% } %> <% if (messages.info) { %>
+      <div class="alert alert-info"><%= messages.info %></div>
+      <% } %> <% if (messages.success) { %>
+      <div class="alert alert-success"><%= messages.success %></div>
+      <% } %>
+    </div>
 
-				<li class="nav-item me-3" role="presentation">
-					<a
-						class="nav-link"
-						id="shopping-tab"
-						data-bs-toggle="tab"
-						href="#shopping"
-						role="tab"
-						aria-controls="shopping"
-						aria-selected="false"
-					>
-						Shopping list
-					</a>
-				</li>
-			</ul>
-		</div>
+    <!-- tab content -->
+    <div class="tab-content" id="groupTabsContent">
+      <!-- general tab -->
+      <div
+        class="tab-pane fade show active"
+        id="general"
+        role="tabpanel"
+        aria-labelledby="general-tab"
+      >
+        <div class="container mt-4">
+          <div class="card">
+            <div class="card-body">
+              <h2>Group details</h2>
+              <br />
+              <p>
+                <strong>Description:</strong> <%= group.group_description %>
+              </p>
+              <p><strong>Location:</strong> <%= group.group_meet_location %></p>
+              <p><strong>Date:</strong> <%= group.group_meet_date %></p>
+              <p><strong>Time:</strong> <%= group.group_meet_time %></p>
+            </div>
+          </div>
 
-		<!-- flash messages -->
-		<div class="flash-message">
-			<% if (messages.error) { %>
-				<div class="alert alert-danger"><%= messages.error %></div>
-			<% } %>
-			<% if (messages.info) { %>
-				<div class="alert alert-info"><%= messages.info %></div>
-			<% } %>
-			<% if (messages.success) { %>
-				<div class="alert alert-success"><%= messages.success %></div>
-			<% } %>
-		</div>
+          <div class="card mt-3">
+            <div class="card-body">
+              <h2>Members</h2>
+              <ul class="list-group">
+                <% members.forEach(member => { %>
+                <li class="list-group-item">
+                  <strong><%= member.user_name %></strong>
+                  <% if (member.diet_preferences) { %>
+                  <span class="text-muted">
+                    - <%= member.diet_preferences %></span
+                  >
+                  <% } %>
+                </li>
+                <% }); %>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
 
-		<!-- tab content -->
-		<div class="tab-content" id="groupTabsContent">
-			<!-- general tab -->
-			<div class="tab-pane fade show active" id="general" role="tabpanel" aria-labelledby="general-tab">
-				<div class="container mt-4">
-					<div class="card">
-						<div class="card-body">
-							<h2>Group details</h2>
-							<br>
-							<p><strong>Description:</strong> <%= group.group_description %></p>
-							<p><strong>Location:</strong> <%= group.group_meet_location %></p>
-							<p><strong>Date:</strong> <%= group.group_meet_date %></p>
-							<p><strong>Time:</strong> <%= group.group_meet_time %></p>
-						</div>
-					</div>
-			
-					<div class="card mt-3">
-						<div class="card-body">
-							<h2>Members</h2>
-							<ul class="list-group">
-								<% members.forEach(member => { %>
-									<li class="list-group-item">
-										<strong><%= member.user_name %></strong>
-										<% if (member.diet_preferences) { %>
-											<span class="text-muted"> - <%= member.diet_preferences %></span>
-										<% } %>
-									</li>
-								<% }); %>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</div>
-			
+      <!-- food tab -->
+      <div
+        class="tab-pane fade"
+        id="food"
+        role="tabpanel"
+        aria-labelledby="food-tab"
+      >
+        <div class="mt-3">
+          <div class="container mt-4">
+            <div class="card mt-3">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-6">
+                    <!-- food suggestion form -->
+                    <form action="/planner/suggest-food" method="POST">
+                      <input
+                        type="hidden"
+                        name="groupId"
+                        value="<%= group.group_id %>"
+                      />
+                      <div class="mb-3">
+                        <label for="foodName" class="form-label"
+                          >Food suggestion:
+                        </label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="foodName"
+                          name="foodName"
+                          required
+                        />
+                      </div>
+                      <button type="submit" class="btn btn-primary">
+                        Suggest Food
+                      </button>
+                    </form>
 
-			<!-- food tab -->
-			<div class="tab-pane fade" id="food" role="tabpanel" aria-labelledby="food-tab">
-    			<div class="mt-3">
-        			<div class="container mt-4">
-            			<div class="card mt-3">
-                			<div class="card-body">
-                    			<div class="row">
-                        			<div class="col-md-6">
-                            			<!-- food suggestion form -->
-                            			<form action="/planner/suggest-food" method="POST">
-                                			<input type="hidden" name="groupId" value="<%= group.group_id %>">
-                                			<div class="mb-3">
-                                    			<label for="foodName" class="form-label">Food suggestion: </label>
-                                    			<input type="text" class="form-control" id="foodName" name="foodName" required>
-                                			</div>
-                                			<button type="submit" class="btn btn-primary">Suggest Food</button>
-                            			</form>
+                    <br />
 
-										<br>
+                    <!-- suggested food table -->
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th>Food suggestion</th>
+                          <th>Votes</th>
+                          <th>Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <% groupFood.filter(food => food.food_confirmed ===
+                        0).forEach(food => { %>
+                        <tr>
+                          <td><%= food.food_name %></td>
+                          <td><%= food.voteCount || 0 %></td>
+                          <td>
+                            <!-- food voting -->
+                            <form
+                              action="/planner/vote-food"
+                              method="POST"
+                              style="display: inline"
+                            >
+                              <input
+                                type="hidden"
+                                name="foodId"
+                                value="<%= food.food_id %>"
+                              />
+                              <input
+                                type="hidden"
+                                name="groupId"
+                                value="<%= group.group_id %>"
+                              />
+                              <input type="hidden" name="voteValue" value="1" />
+                              <button
+                                type="submit"
+                                class="btn btn-outline-secondary"
+                              >
+                                👍
+                              </button>
+                            </form>
 
-                            			<!-- suggested food table -->
-                            			<table class="table">
-                                			<thead>
-                                    			<tr>
-                                        			<th>Food suggestion</th>
-                                        			<th>Votes</th>
-                                        			<th>Actions</th>
-                                    			</tr>
-                                			</thead>
-                                			<tbody>
-                                    			<% groupFood.filter(food => food.food_confirmed === 0).forEach(food => { %>
-                                        			<tr>
-                                            			<td><%= food.food_name %></td>
-                                            			<td><%= food.voteCount || 0 %></td>
-                                            			<td>
-                                                			<!-- food voting -->
-                                                			<form action="/planner/vote-food" method="POST" style="display: inline;">
-                                                    			<input type="hidden" name="foodId" value="<%= food.food_id %>">
-                                                    			<input type="hidden" name="groupId" value="<%= group.group_id %>">
-                                                    			<input type="hidden" name="voteValue" value="1">
-                                                    			<button type="submit" class="btn btn-outline-secondary">👍</button>
-                                                			</form>
+                            <form
+                              action="/planner/vote-food"
+                              method="POST"
+                              style="display: inline"
+                            >
+                              <input
+                                type="hidden"
+                                name="foodId"
+                                value="<%= food.food_id %>"
+                              />
+                              <input
+                                type="hidden"
+                                name="groupId"
+                                value="<%= group.group_id %>"
+                              />
+                              <input
+                                type="hidden"
+                                name="voteValue"
+                                value="-1"
+                              />
+                              <button
+                                type="submit"
+                                class="btn btn-outline-secondary"
+                              >
+                                👎
+                              </button>
+                            </form>
 
-                                                			<form action="/planner/vote-food" method="POST" style="display: inline;">
-                                                    			<input type="hidden" name="foodId" value="<%= food.food_id %>">
-                                                    			<input type="hidden" name="groupId" value="<%= group.group_id %>">
-                                                    			<input type="hidden" name="voteValue" value="-1">
-                                                    			<button type="submit" class="btn btn-outline-secondary">👎</button>
-                                                			</form>
+                            <!-- delete food button for suggestor -->
+                            <% if (food.user_id === user?.user_id) { %>
+                            <form
+                              action="/planner/delete-food"
+                              method="POST"
+                              style="display: inline"
+                            >
+                              <input
+                                type="hidden"
+                                name="foodId"
+                                value="<%= food.food_id %>"
+                              />
+                              <input
+                                type="hidden"
+                                name="groupId"
+                                value="<%= group.group_id %>"
+                              />
+                              <button type="submit" class="btn btn-danger">
+                                Delete
+                              </button>
+                            </form>
+                            <% } %>
 
-                                                			<!-- delete food button for suggestor -->
-                                                			<% if (food.user_id === user?.user_id) { %>
-                                                    			<form action="/planner/delete-food" method="POST" style="display: inline;">
-                                                        			<input type="hidden" name="foodId" value="<%= food.food_id %>">
-                                                        			<input type="hidden" name="groupId" value="<%= group.group_id %>">
-                                                        			<button type="submit" class="btn btn-danger">Delete</button>
-                                                    			</form>
-                                                			<% } %>
+                            <!-- confirm food button for leader -->
+                            <% if (group.group_leader === user?.user_id) { %>
+                            <form
+                              action="/planner/confirm-food"
+                              method="POST"
+                              style="display: inline"
+                            >
+                              <input
+                                type="hidden"
+                                name="foodId"
+                                value="<%= food.food_id %>"
+                              />
+                              <input
+                                type="hidden"
+                                name="groupId"
+                                value="<%= group.group_id %>"
+                              />
+                              <button type="submit" class="btn btn-success">
+                                Confirm
+                              </button>
+                            </form>
+                            <% } %>
+                          </td>
+                        </tr>
+                        <% }); %>
+                      </tbody>
+                    </table>
+                  </div>
 
-                                                			<!-- confirm food button for leader -->
-                                                			<% if (group.group_leader === user?.user_id) { %>
-                                                    			<form action="/planner/confirm-food" method="POST" style="display: inline;">
-                                                        			<input type="hidden" name="foodId" value="<%= food.food_id %>">
-                                                        			<input type="hidden" name="groupId" value="<%= group.group_id %>">
-                                                        			<button type="submit" class="btn btn-success">Confirm</button>
-                                                    			</form>
-                                                			<% } %>
-                                            			</td>
-                                        			</tr>
-                                    			<% }); %>
-                                			</tbody>
-                            			</table>
-                        			</div>
+                  <!-- confirmed food list -->
+                  <div class="col-md-6">
+                    <div class="card">
+                      <div class="card-header bg-success text-white">
+                        Confirmed foods
+                      </div>
+                      <div class="card-body">
+                        <ul class="list-group">
+                          <% groupFood.filter(food => food.food_confirmed ===
+                          1).forEach(food => { %>
+                          <li class="list-group-item"><%= food.food_name %></li>
+                          <% }); %>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
-                        			<!-- confirmed food list -->
-                        			<div class="col-md-6">
-                            			<div class="card">
-                                			<div class="card-header bg-success text-white">
-                                    			Confirmed foods
-                                			</div>
-                                			<div class="card-body">
-                                    			<ul class="list-group">
-                                        			<% groupFood.filter(food => food.food_confirmed === 1).forEach(food => { %>
-                                            			<li class="list-group-item"><%= food.food_name %></li>
-                                        			<% }); %>
-                                    			</ul>
-                                			</div>
-                            			</div>
-                        			</div> 
-                    			</div> 
-                			</div>
-            			</div>
-        			</div>
-    			</div>
-			</div>
+      <!-- shopping list tab -->
+      <div
+        class="tab-pane fade"
+        id="shopping"
+        role="tabpanel"
+        aria-labelledby="shopping-tab"
+      >
+        <div class="container mt-4">
+          <div class="card">
+            <div class="card-body">
+              <h2>Add ingredient</h2>
+              <form action="/planner/add-ingredient" method="POST">
+                <input
+                  type="hidden"
+                  name="groupId"
+                  value="<%= group.group_id %>"
+                />
+                <div class="mb-3">
+                  <label for="ingredientName" class="form-label"
+                    >Ingredient name</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="ingredientName"
+                    name="ingredientName"
+                    required
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="quantity" class="form-label">Quantity</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="quantity"
+                    name="quantity"
+                    required
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="unit" class="form-label">Unit</label>
+                  <select class="form-control" id="unit" name="unit" required>
+                    <option value="pieces">Pieces</option>
+                    <option value="grams">Grams</option>
+                    <option value="kg">Kilograms</option>
+                    <option value="ml">Milliliters</option>
+                    <option value="liters">Liters</option>
+                  </select>
+                </div>
+                <button type="submit" class="btn btn-primary">
+                  Add ingredient
+                </button>
+              </form>
+            </div>
+          </div>
 
-			<!-- shopping list tab -->
-			<div class="tab-pane fade" id="shopping" role="tabpanel" aria-labelledby="shopping-tab">
-				<div class="container mt-4">
-					<div class="card">
-						<div class="card-body">
-							<h2>Add ingredient</h2>
-							<form action="/planner/add-ingredient" method="POST">
-								<input type="hidden" name="groupId" value="<%= group.group_id %>">
-								<div class="mb-3">
-									<label for="ingredientName" class="form-label">Ingredient name</label>
-									<input type="text" class="form-control" id="ingredientName" name="ingredientName" required>
-								</div>
-								<div class="mb-3">
-									<label for="quantity" class="form-label">Quantity</label>
-									<input type="number" class="form-control" id="quantity" name="quantity" required>
-								</div>
-								<div class="mb-3">
-									<label for="unit" class="form-label">Unit</label>
-									<select class="form-control" id="unit" name="unit" required>
-										<option value="pieces">Pieces</option>
-										<option value="grams">Grams</option>
-										<option value="kg">Kilograms</option>
-										<option value="ml">Milliliters</option>
-										<option value="liters">Liters</option>
-									</select>
-								</div>
-								<button type="submit" class="btn btn-primary">Add ingredient</button>
-							</form>
-						</div>
-					</div>
-			
-					<div class="card mt-3">
-						<div class="card-body">
-							<h2>Shopping list</h2>
-							<table class="table">
-								<thead>
-									<tr>
-										<th>Ingredient</th>
-										<th>Quantity</th>
-										<th>Unit</th>
-										<th>Actions</th>
-									</tr>
-								</thead>
-								<tbody>
-									<% shoppingList.forEach(item => { %>
-										<tr>
-											<td><%= item.ingredient_name %></td>
-											<td><%= item.quantity %></td>
-											<td><%= item.unit %></td>
-											<td>
-												<% if (item.purchased === 1) { %>
-													<span>Purchased by <%= item.purchased_by %></span>
-												<% } else { %>
-													<form action="/planner/mark-purchased" method="POST" style="display: inline;">
-														<input type="hidden" name="itemId" value="<%= item.id %>">
-														<input type="hidden" name="groupId" value="<%= group.group_id %>">
-														<button type="submit" class="btn btn-success">Mark as purchased</button>
-													</form>
-													<% if (item.user_id === user?.user_id) { %>
-														<form action="/planner/delete-ingredient" method="POST" style="display: inline;">
-															<input type="hidden" name="itemId" value="<%= item.id %>">
-															<input type="hidden" name="groupId" value="<%= group.group_id %>">
-															<button type="submit" class="btn btn-danger">Delete</button>
-														</form>
-													<% } %>
-												<% } %>
-											</td>
-										</tr>
-									<% }); %>
-								</tbody>
-							</table>
-						</div>
-					</div>
-				</div>
-			</div>
-			
-		</div>
+          <div class="card mt-3">
+            <div class="card-body">
+              <h2>Shopping list</h2>
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Ingredient</th>
+                    <th>Quantity</th>
+                    <th>Unit</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% shoppingList.forEach(item => { %>
+                  <tr>
+                    <td><%= item.ingredient_name %></td>
+                    <td><%= item.quantity %></td>
+                    <td><%= item.unit %></td>
+                    <td>
+                      <% if (item.purchased === 1) { %>
+                      <span>Purchased by <%= item.purchased_by %></span>
+                      <% } else { %>
+                      <form
+                        action="/planner/mark-purchased"
+                        method="POST"
+                        style="display: inline"
+                      >
+                        <input
+                          type="hidden"
+                          name="itemId"
+                          value="<%= item.id %>"
+                        />
+                        <input
+                          type="hidden"
+                          name="groupId"
+                          value="<%= group.group_id %>"
+                        />
+                        <button type="submit" class="btn btn-success">
+                          Mark as purchased
+                        </button>
+                      </form>
+                      <% if (item.user_id === user?.user_id) { %>
+                      <form
+                        action="/planner/delete-ingredient"
+                        method="POST"
+                        style="display: inline"
+                      >
+                        <input
+                          type="hidden"
+                          name="itemId"
+                          value="<%= item.id %>"
+                        />
+                        <input
+                          type="hidden"
+                          name="groupId"
+                          value="<%= group.group_id %>"
+                        />
+                        <button type="submit" class="btn btn-danger">
+                          Delete
+                        </button>
+                      </form>
+                      <% } %> <% } %>
+                    </td>
+                  </tr>
+                  <% }); %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-		<br>
+    <br />
 
-    	<button class="back-button" onclick="history.back()">Back</button>
+    <button class="back-button" onclick="history.back()">Back</button>
 
+    <!-- footer -->
+    <footer class="bg-success-subtle text-center p-3 mt-5">
+      <a href="/#about-us">About Us</a>
+      <p>&copy; 2025 Feastly</p>
+    </footer>
 
+    <!-- bootstrap popper for the dropdowns in navbar -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+      integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+      integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
+      crossorigin="anonymous"
+    ></script>
 
-		<!-- footer -->
-		<footer class="bg-success-subtle text-center p-3 mt-5">
-			<a href="/#about-us">About Us</a>
-			<p>&copy; 2025 Feastly</p>
-		</footer>
-
-		<!-- bootstrap popper for the dropdowns in navbar -->
-		<script
-			src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-			integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
-			crossorigin="anonymous"
-		></script>
-		<script
-			src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
-			integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
-			crossorigin="anonymous"
-		></script>
-		
-		<script>
-			// remove flash message after 2seconds
-			setTimeout(() => {
-			  const flashMessages = document.querySelectorAll('.flash-message');
-			  flashMessages.forEach(message => {
-				message.remove();
-			  });
-			}, 2000); 
-		  </script>
-
-	</body>
+    <script>
+      // remove flash message after 2seconds
+      setTimeout(() => {
+        const flashMessages = document.querySelectorAll(".flash-message");
+        flashMessages.forEach((message) => {
+          message.remove();
+        });
+      }, 2000);
+    </script>
+  </body>
 </html>
